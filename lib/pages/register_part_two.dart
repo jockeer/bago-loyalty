@@ -86,7 +86,7 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
     return Scaffold(
       body: ModalProgressHUD(
         child: Stack(
-          children: <Widget>[_fondo(), _demas_elementos(context)],
+          children: <Widget>[_fondo(), _demasElementos(context)],
         ),
         inAsyncCall: cargando,
         color: Colors.white,
@@ -96,6 +96,15 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
               new AlwaysStoppedAnimation<Color>(Colores.COLOR_AZUL_ATC_FARMA),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.arrow_back),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
     );
   }
 
@@ -117,37 +126,47 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
     this.listaDetipoDePersonas.add("Cliente");
   }
 
-  Widget _demas_elementos(BuildContext contextoDemasElementos) {
+  Widget _demasElementos(BuildContext contextoDemasElementos) {
     Size tamanoPhone = MediaQuery.of(contextoDemasElementos).size;
     return SingleChildScrollView(
-      child: Column(
+      child: SafeArea(
+        child: Column(
         children: <Widget>[
-          _parteSuperior(contextoDemasElementos),
+          SizedBox(height: 40.0,),
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20.0 ),
+              color: Color(0xff7754C1),
+            ),
+            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 35.0),
+            margin: EdgeInsets.all(20.0),
+            // color:  
+            child: Column(
+              children: [
+                Text('INGRESA INFORMACION ADICIONAL', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16.0), textAlign: TextAlign.center,),
+                SizedBox(height: 10.0,),                                     
+                Text('Vamos a necesitar alguna informacion tuya para continuar con el registro', style: TextStyle(color: Colors.white54) ,textAlign: TextAlign.center),
+              ],
+            ),
+          ),
+          // _parteSuperior(contextoDemasElementos),
           Padding(
               padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 1.0),
               child: _cuerpoDeCampos(contextoDemasElementos)),
-          Container(
-            width: tamanoPhone.width * 0.5,
-            child: Image(
-              image: AssetImage(
-                  "assets/imagenes/imagenes_farmacorp/farmacorp_logo.png"),
-              fit: BoxFit.cover,
-            ),
-          ),
         ],
       ),
+      )
     );
   }
 
   Widget _cuerpoDeCampos(BuildContext contextoCuerpo) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 30.0),
       decoration: BoxDecoration(
-          color: Colors.transparent,
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(15.0),
-              topRight: Radius.circular(15.0)),
-          border: Border.all(color: Colors.white)),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(40.0),
+          border: Border.all(color: Color(0xff00FEE0), width: 3.0)
+      ),
       child: Column(
         children: <Widget>[
           textFieldCI(contextoCuerpo),
@@ -174,7 +193,7 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
           SizedBox(
             height: 10.0,
           ),
-          checkBoxAcept(contextoCuerpo),
+          // checkBoxAcept(contextoCuerpo),
           SizedBox(
             height: 10.0,
           ),
@@ -184,40 +203,40 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
     );
   }
 
-  Widget checkBoxAcept(BuildContext contextoCheck) {
-    final provedorDeBloc = Provider.of(contextoCheck);
-    return StreamBuilder(
-        stream: provedorDeBloc.streamTandCondition,
-        builder: (BuildContext contexto, AsyncSnapshot<bool> asyncSnapshot) {
-          print(asyncSnapshot.data);
-          return CheckboxListTile(
-            activeColor: Colores.COLOR_AZUL_ATC_FARMA,
-            title: GestureDetector(
-              child: RichText(
-                  text: TextSpan(
-                      text: "Al crear una cuenta estás aceptando los",
-                      style: TextStyle(color: Colors.white),
-                      children: <TextSpan>[
-                    TextSpan(
-                        text: " Términos y condiciones",
-                        style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            fontStyle: FontStyle.italic)),
-                    TextSpan(text: " de Fidenlázate Farmacorp")
-                  ])),
-              onTap: () {
-                Navigator.of(contextoCheck)
-                    .pushNamed(TermsAndConditionPage.namePage);
-              },
-            ),
-            value: asyncSnapshot.data ?? false,
-            onChanged: (newValue) {
-              provedorDeBloc.addDataToStreamTAndConditio(newValue);
-            },
-            controlAffinity: ListTileControlAffinity.leading,
-          );
-        });
-  }
+  // Widget checkBoxAcept(BuildContext contextoCheck) {
+  //   final provedorDeBloc = Provider.of(contextoCheck);
+  //   return StreamBuilder(
+  //       stream: provedorDeBloc.streamTandCondition,
+  //       builder: (BuildContext contexto, AsyncSnapshot<bool> asyncSnapshot) {
+  //         print(asyncSnapshot.data);
+  //         return CheckboxListTile(
+  //           activeColor: Colores.COLOR_AZUL_ATC_FARMA,
+  //           title: GestureDetector(
+  //             child: RichText(
+  //                 text: TextSpan(
+  //                     text: "Al crear una cuenta estás aceptando los",
+  //                     style: TextStyle(color: Colors.white),
+  //                     children: <TextSpan>[
+  //                   TextSpan(
+  //                       text: " Términos y condiciones",
+  //                       style: TextStyle(
+  //                           decoration: TextDecoration.underline,
+  //                           fontStyle: FontStyle.italic)),
+  //                   TextSpan(text: " de Fidenlázate Farmacorp")
+  //                 ])),
+  //             onTap: () {
+  //               Navigator.of(contextoCheck)
+  //                   .pushNamed(TermsAndConditionPage.namePage);
+  //             },
+  //           ),
+  //           value: asyncSnapshot.data ?? false,
+  //           onChanged: (newValue) {
+  //             provedorDeBloc.addDataToStreamTAndConditio(newValue);
+  //           },
+  //           controlAffinity: ListTileControlAffinity.leading,
+  //         );
+  //       });
+  // }
 
   void _submit() {
     this.setState(() {
@@ -245,8 +264,8 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
                 provedorBlocLoyalty.ultimoValorCiudad != "" &&
                 provedorBlocLoyalty.ultimoValorCelular != null &&
                 provedorBlocLoyalty.ultimoValorCelular != "" &&
-                provedorBlocLoyalty.ultimoValorTermsAndCond != null &&
-                provedorBlocLoyalty.ultimoValorTermsAndCond &&
+                // provedorBlocLoyalty.ultimoValorTermsAndCond != null &&
+                // provedorBlocLoyalty.ultimoValorTermsAndCond &&
                 !asyncSnapshot.hasError) {
               verificadorDeInternet.verificarConexion().then((onValue) {
                 RegisterProvider registrarProvedor = new RegisterProvider();
@@ -348,21 +367,33 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
         stream: provedorDeBloc.streamCelular,
         builder: (BuildContext contexto, AsyncSnapshot<String> asyncSnapshot) {
           print(asyncSnapshot.data);
-          return TextField(
-            keyboardType: TextInputType.phone,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                prefixIcon: Icon(Icons.phone),
-                hintText: "Número de celular",
-                //labelText: "Número de celular",
-                errorStyle: TextStyle(color: Colors.white),
-                fillColor: Colors.white,
-                filled: true,
-                errorText: asyncSnapshot.error),
-            onChanged: (value) {
-              provedorDeBloc.addDataToStreamCelular(value);
-            },
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal:  10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('CODIGO DE SUCURSAL:', style: TextStyle(color: Color(0xff8B3192), fontWeight: FontWeight.bold),),
+                TextField(
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0), borderSide: BorderSide(color: Colors.transparent)),
+                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.circular(50.0) ),
+                      disabledBorder: InputBorder.none,
+                      fillColor: Colors.grey[100],
+                      filled: true,
+                      suffixIcon: Icon(Icons.info_outline_rounded),
+                      hintText: "Codigo de Sucursal",
+                      //labelText: "Número de celular",
+                      errorStyle: TextStyle(color: Colors.white),
+                
+                      errorText: asyncSnapshot.error),
+                  onChanged: (value) {
+                    provedorDeBloc.addDataToStreamCelular(value);
+                  },
+                ),
+              ],
+            ),
           );
         });
   }
@@ -447,54 +478,66 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
         stream: provedorDeBloc.streamCiudad,
         builder: (BuildContext contexto, AsyncSnapshot<String> asyncSnapshot) {
           print(asyncSnapshot.data);
-          return TextField(
-            controller: this.controladorTextEditingCiudades,
-            enableInteractiveSelection: false,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                prefixIcon: Icon(Icons.location_city),
-                hintText: "Ciudad",
-                // labelText: "Ciudad",
-                errorStyle: TextStyle(color: Colors.white),
-                filled: true,
-                fillColor: Colors.white,
-                errorText: asyncSnapshot.error),
-            onChanged: (value) {
-              // provedorDeBloc.addDataToStreamCiudad(value);
-            },
-            onTap: () {
-              FocusScope.of(contextoCiudad).requestFocus(new FocusNode());
-              this.verificadorDeInternet.verificarConexion().then((onValue) {
-                if (onValue[Constantes.estado] ==
-                    Constantes.respuesta_estado_ok) {
-                  final preferencias = new SharedPreferencesapp();
-                  String access_token = preferencias.devolverValor(
-                      Constantes.access_token, "null");
-                  if (access_token == "null") {
-                    this.base.hitAccessTokenApi().then((onValue) {
-                      if (this.selectedCountryId == null) {
-                        this.base.showSnackBar(Constantes.select_country,
-                            contexto, Colores.COLOR_AZUL_ATC_FARMA);
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal:  10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('CIUDAD:', style: TextStyle(color: Color(0xff8B3192), fontWeight: FontWeight.bold),),
+                TextField(
+                  controller: this.controladorTextEditingCiudades,
+                  enableInteractiveSelection: false,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0), borderSide: BorderSide(color: Colors.transparent)),
+                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.circular(50.0) ),
+                      disabledBorder: InputBorder.none,
+                      fillColor: Colors.grey[100],
+                      filled: true,
+                      suffixIcon: Icon(Icons.info_outline_rounded),
+                      hintText: "Ciudad",
+                      // labelText: "Ciudad",
+                      errorStyle: TextStyle(color: Colors.white),
+
+                      errorText: asyncSnapshot.error),
+                  onChanged: (value) {
+                    // provedorDeBloc.addDataToStreamCiudad(value);
+                  },
+                  onTap: () {
+                    FocusScope.of(contextoCiudad).requestFocus(new FocusNode());
+                    this.verificadorDeInternet.verificarConexion().then((onValue) {
+                      if (onValue[Constantes.estado] ==
+                          Constantes.respuesta_estado_ok) {
+                        final preferencias = new SharedPreferencesapp();
+                        String access_token = preferencias.devolverValor(
+                            Constantes.access_token, "null");
+                        if (access_token == "null") {
+                          this.base.hitAccessTokenApi().then((onValue) {
+                            if (this.selectedCountryId == null) {
+                              this.base.showSnackBar(Constantes.select_country,
+                                  contexto, Colores.COLOR_AZUL_ATC_FARMA);
+                            } else {
+                              _mostrarDialogCities(contexto);
+                            }
+                          });
+                        } else {
+                          if (this.selectedCountryId == null) {
+                            this.base.showSnackBar(Constantes.select_country,
+                                contexto, Colores.COLOR_AZUL_ATC_FARMA);
+                          } else {
+                            _mostrarDialogCities(contexto);
+                          }
+                        }
                       } else {
-                        _mostrarDialogCities(contexto);
+                        this.base.showSnackBar(Constantes.error_conexion, contexto,
+                            Colores.COLOR_AZUL_ATC_FARMA);
                       }
                     });
-                  } else {
-                    if (this.selectedCountryId == null) {
-                      this.base.showSnackBar(Constantes.select_country,
-                          contexto, Colores.COLOR_AZUL_ATC_FARMA);
-                    } else {
-                      _mostrarDialogCities(contexto);
-                    }
-                  }
-                } else {
-                  this.base.showSnackBar(Constantes.error_conexion, contexto,
-                      Colores.COLOR_AZUL_ATC_FARMA);
-                }
-              });
-            },
+                  },
+               )
+              ],
+            ),
           );
         });
   }
@@ -579,44 +622,56 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
         stream: provedorDeBloc.streamPais,
         builder: (BuildContext contexto, AsyncSnapshot<String> asyncSnapshot) {
           print(asyncSnapshot.data);
-          return TextField(
-            controller: this.controladorTextEditingPaises,
-            enableInteractiveSelection: false,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                prefixIcon: Icon(Icons.location_city),
-                hintText: "País",
-                //labelText: "País",
-                fillColor: Colors.white,
-                filled: true,
-                errorStyle: TextStyle(color: Colors.white),
-                errorText: asyncSnapshot.error),
-            onChanged: (value) {
-              //  provedorDeBloc.addDataToStreamPais(value);
-            },
-            onTap: () {
-              FocusScope.of(contextoPais).requestFocus(new FocusNode());
-              this.verificadorDeInternet.verificarConexion().then((onValue) {
-                if (onValue[Constantes.estado] ==
-                    Constantes.respuesta_estado_ok) {
-                  final preferencias = new SharedPreferencesapp();
-                  String access_token = preferencias.devolverValor(
-                      Constantes.access_token, "null");
-                  if (access_token == "null") {
-                    this.base.hitAccessTokenApi().then((onValue) {
-                      _mostrarDialogCountries(contexto);
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal:  10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('PAIS:', style: TextStyle(color: Color(0xff8B3192), fontWeight: FontWeight.bold),),
+                TextField(
+                  controller: this.controladorTextEditingPaises,
+                  enableInteractiveSelection: false,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                     contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0), borderSide: BorderSide(color: Colors.transparent)),
+                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.circular(50.0) ),
+                      disabledBorder: InputBorder.none,
+                      fillColor: Colors.grey[100],
+                      filled: true,
+                      suffixIcon: Icon(Icons.info_outline_rounded),
+                      hintText: "País",
+                      //labelText: "País",
+                      
+                      errorStyle: TextStyle(color: Colors.white),
+                      errorText: asyncSnapshot.error),
+                  onChanged: (value) {
+                    //  provedorDeBloc.addDataToStreamPais(value);
+                  },
+                  onTap: () {
+                    FocusScope.of(contextoPais).requestFocus(new FocusNode());
+                    this.verificadorDeInternet.verificarConexion().then((onValue) {
+                      if (onValue[Constantes.estado] ==
+                          Constantes.respuesta_estado_ok) {
+                        final preferencias = new SharedPreferencesapp();
+                        String access_token = preferencias.devolverValor(
+                            Constantes.access_token, "null");
+                        if (access_token == "null") {
+                          this.base.hitAccessTokenApi().then((onValue) {
+                            _mostrarDialogCountries(contexto);
+                          });
+                        } else {
+                          _mostrarDialogCountries(contexto);
+                        }
+                      } else {
+                        this.base.showSnackBar(Constantes.error_conexion, contexto,
+                            Colores.COLOR_AZUL_ATC_FARMA);
+                      }
                     });
-                  } else {
-                    _mostrarDialogCountries(contexto);
-                  }
-                } else {
-                  this.base.showSnackBar(Constantes.error_conexion, contexto,
-                      Colores.COLOR_AZUL_ATC_FARMA);
-                }
-              });
-            },
+                  },
+                ),
+              ],
+            ),
           );
         });
   }
@@ -701,28 +756,38 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
         stream: provedorDeBloc.streamFechaNacimiento,
         builder: (BuildContext contexto, AsyncSnapshot<String> asyncSnapshot) {
           print(asyncSnapshot.data);
-          return TextField(
-            controller: this.controladorTextEditingFechaNac,
-            keyboardType: TextInputType.datetime,
-            enableInteractiveSelection: false,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                prefixIcon: Icon(Icons.timer),
-                hintText: "Fecha de nacimiento",
-                // labelText: "Fecha de nacimiento",
-
-                filled: true,
-                fillColor: Colors.white,
-                errorStyle: TextStyle(color: Colors.white),
-                errorText: asyncSnapshot.error),
-            onChanged: (value) {
-              provedorDeBloc.addDataToStreamFechaNac(value);
-            },
-            onTap: () {
-              FocusScope.of(contextoFechaNaci).requestFocus(new FocusNode());
-              _mostrarDate(context);
-            },
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal:  10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('FECHA DE NACIMIENTO:', style: TextStyle(color: Color(0xff8B3192), fontWeight: FontWeight.bold),),
+                TextField(
+                  controller: this.controladorTextEditingFechaNac,
+                  keyboardType: TextInputType.datetime,
+                  enableInteractiveSelection: false,
+                  decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0), borderSide: BorderSide(color: Colors.transparent)),
+                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.circular(50.0) ),
+                      disabledBorder: InputBorder.none,
+                      fillColor: Colors.grey[100],
+                      filled: true,
+                      suffixIcon: Icon(Icons.info_outline_rounded),
+                      hintText: "Fecha de nacimiento",
+                      // labelText: "Fecha de nacimiento",
+                      errorStyle: TextStyle(color: Colors.white),
+                      errorText: asyncSnapshot.error),
+                  onChanged: (value) {
+                    provedorDeBloc.addDataToStreamFechaNac(value);
+                  },
+                  onTap: () {
+                    FocusScope.of(contextoFechaNaci).requestFocus(new FocusNode());
+                    _mostrarDate(context);
+                  },
+                ),
+              ],
+            ),
           );
         });
   }
@@ -768,27 +833,38 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
         stream: provedorDeBloc.streamCiudadExpedicion,
         builder: (BuildContext contexto, AsyncSnapshot<String> asyncSnapshot) {
           print(asyncSnapshot.data);
-          return TextField(
-            controller: this.controladorTextEditingCiudadExpedicion,
-            enableInteractiveSelection: false,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                prefixIcon: Icon(Icons.location_city),
-                hintText: "Ciudad de expedición",
-                // labelText: "Ciudad de expedición",
-                fillColor: Colors.white,
-                filled: true,
-                errorStyle: TextStyle(color: Colors.white),
-                errorText: asyncSnapshot.error),
-            onChanged: (value) {
-              provedorDeBloc.addDataToStreamCiudadExp(value);
-            },
-            onTap: () {
-              FocusScope.of(contextoCiudadExpedicion)
-                  .requestFocus(new FocusNode());
-              _mostrarDialog(contextoCiudadExpedicion);
-            },
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal:  10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('CIUDAD DE EXPEDICION:', style: TextStyle(color: Color(0xff8B3192), fontWeight: FontWeight.bold),),
+                TextField(
+                  controller: this.controladorTextEditingCiudadExpedicion,
+                  enableInteractiveSelection: false,
+                  decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0), borderSide: BorderSide(color: Colors.transparent)),
+                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.circular(50.0) ),
+                      disabledBorder: InputBorder.none,
+                      fillColor: Colors.grey[100],
+                      filled: true,
+                      suffixIcon: Icon(Icons.info_outline_rounded),
+                      hintText: "Ciudad de expedición",
+                      // labelText: "Ciudad de expedición",
+                      errorStyle: TextStyle(color: Colors.white),
+                      errorText: asyncSnapshot.error),
+                  onChanged: (value) {
+                    provedorDeBloc.addDataToStreamCiudadExp(value);
+                  },
+                  onTap: () {
+                    FocusScope.of(contextoCiudadExpedicion)
+                        .requestFocus(new FocusNode());
+                    _mostrarDialog(contextoCiudadExpedicion);
+                  },
+                )
+              ],
+            ),
           );
         });
   }
@@ -845,21 +921,33 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
         stream: provedorDeBloc.streamCi_Nit,
         builder: (BuildContext contexto, AsyncSnapshot<String> asyncSnapshot) {
           print(asyncSnapshot.data);
-          return TextField(
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                prefixIcon: Icon(Icons.person),
-                hintText: "Cédula de identidad",
-                //labelText: "Cédula de identidad",
-                filled: true,
-                fillColor: Colors.white,
-                errorStyle: TextStyle(color: Colors.white),
-                errorText: asyncSnapshot.error),
-            onChanged: (value) {
-              provedorDeBloc.addDataToToStreamCi_Nit(value);
-            },
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('NUMERO DE CARNET DE IDENTIDAD:', style: TextStyle(color: Color(0xff8B3192), fontWeight: FontWeight.bold),),
+                TextField(
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0), borderSide: BorderSide(color: Colors.transparent)),
+                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.circular(50.0) ),
+                      disabledBorder: InputBorder.none,
+                      fillColor: Colors.grey[100],
+                      filled: true,
+                      suffixIcon: Icon(Icons.info_outline_rounded),
+                      hintText: "Cédula de identidad",
+                      //labelText: "Cédula de identidad",
+                       
+                      errorStyle: TextStyle(color: Colors.white),
+                      errorText: asyncSnapshot.error), 
+                  onChanged: (value) {
+                    provedorDeBloc.addDataToToStreamCi_Nit(value);
+                  },
+                ),
+              ],
+            ),
           );
         });
   }
@@ -888,19 +976,6 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
                 Icons.arrow_back_ios,
                 color: Colors.white,
               )),
-          Container(
-            width: tamanoPhone.width * 0.5,
-            child: Image(
-              image: AssetImage("assets/imagenes/logo_fridolin.png"),
-              fit: BoxFit.cover,
-            ),
-          ),
-          FlatButton(
-              onPressed: () {},
-              child: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.transparent,
-              )),
         ],
       ),
     );
@@ -912,7 +987,7 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
       width: double.infinity,
       height: double.infinity,
       child: Image(
-        image: AssetImage("assets/imagenes/fondo_fridolin.jpg"),
+        image: AssetImage("assets/imagenes/bago-fondo-3.png"),
         fit: BoxFit.cover,
       ),
     );

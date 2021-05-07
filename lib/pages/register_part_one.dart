@@ -35,17 +35,27 @@ class _RegisterPartOneState extends State<RegisterPartOne> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: <Widget>[_fondo(), _demasElementos(context)],
+        children: <Widget>[_fondo(), _demasElementos(context),],
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.arrow_back),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
     );
   }
 
   Widget _demasElementos(BuildContext contextoDemasElementos) {
-
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          _parteSuperior(contextoDemasElementos),
+          SizedBox(
+            height: 40.0,
+          ),
           Padding(
               padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 50.0),
               child: _cuerpoDeCampos(contextoDemasElementos)),
@@ -56,47 +66,85 @@ class _RegisterPartOneState extends State<RegisterPartOne> {
 
   Widget _cuerpoDeCampos(BuildContext contextoCuerpo) {
     return Container(
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20.0),
-          border: Border.all(width: 3.0,color: Colors.blue[200])),
       child: Column(
         children: <Widget>[
           Container(
-            height: 100.0,
+            padding: EdgeInsets.symmetric(vertical: 10.0),
+            height: 130.0,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(topLeft: Radius.circular(15.0), topRight:Radius.circular(15.0) ),
-               color: Color(0xff6E55BD)
+              border: Border.all(width: 3.0, color: Color(0xff00FEE0)),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30.0),
+                topRight: Radius.circular(30.0)
+              ),
+              color: Color(0xff6E55BD)
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('INGRESA TU INFORMACION', style: TextStyle(color: Colors.white,  fontWeight: FontWeight.bold, fontSize: 20.0)),
-                Icon(Icons.content_paste, color: Colors.white, size: 50.0,)
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'INGRESA TU ',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20.0,
+                      ),
+                      textAlign: TextAlign.end,
+                    ),
+                    Text('INFORMACION',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0)),
+                  ],
+                ),
+                SizedBox(
+                  width: 15.0,
+                ),
+                Image(
+                  image: AssetImage('assets/icons/icon_tableta.png'),
+                )
               ],
             ),
           ),
-          textFieldNombre(contextoCuerpo),
+          
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 40.0),
+            decoration: BoxDecoration( 
+              color: Colors.white,
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(30.0),bottomRight: Radius.circular(30.0)) ,
+              border: Border.all(width: 3.0, color: Color(0xff00FEE0)),
+            ),
+            child: Column(
+              children: [
+                textFieldNombre(contextoCuerpo),
+                SizedBox(
+                  height: 10.0,
+                ),
+                textFieldApellidos(contextoCuerpo),
+                SizedBox(
+                  height: 10.0,
+                ),
+                textFieldCorreo(contextoCuerpo),
+                SizedBox(
+                  height: 10.0,
+                ),
+                textFieldPassword(contextoCuerpo),
+
+              ],
+            ),
+          ),
           SizedBox(
             height: 10.0,
           ),
-          textFieldApellidos(contextoCuerpo),
+          // _codigoConsultoria(contextoCuerpo),
           SizedBox(
-            height: 10.0,
+            height: 30.0,
           ),
-          textFieldCorreo(contextoCuerpo),
-          SizedBox(
-            height: 10.0,
-          ),
-          textFieldPassword(contextoCuerpo),
-          SizedBox(
-            height: 10.0,
-          ),
-          _codigoConsultoria(contextoCuerpo),
-          SizedBox(
-            height: 10.0,
-          ),
-          btnEnviar(contextoCuerpo),
+          btnEnviar(contextoCuerpo)
         ],
       ),
     );
@@ -131,7 +179,12 @@ class _RegisterPartOneState extends State<RegisterPartOne> {
     return StreamBuilder(
         stream: provedorDeBloc.validarUsuario,
         builder: (BuildContext contexto, AsyncSnapshot<bool> asyncSnapshot) {
-          return RaisedButton(
+          return Container(
+            decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50.0),
+                    border: Border.all(width: 3.0, color: Color(0xff00FEE0))
+                  ),
+            child: ElevatedButton(
             onPressed: () {
               if (!asyncSnapshot.hasError &&
                   provedorDeBloc.ultimoValorName != null &&
@@ -141,9 +194,10 @@ class _RegisterPartOneState extends State<RegisterPartOne> {
                   provedorDeBloc.ultimoValorCorreo != null &&
                   provedorDeBloc.ultimoValorCorreo != "" &&
                   provedorDeBloc.ultimoValorPassword2 != null &&
-                  provedorDeBloc.ultimoValorPassword2 != "" &&
-                  provedorDeBloc.ultimoValorCodigoConsRegisterOne != null &&
-                  provedorDeBloc.ultimoValorCodigoConsRegisterOne != "") {
+                  provedorDeBloc.ultimoValorPassword2 != ""
+                  // provedorDeBloc.ultimoValorCodigoConsRegisterOne != null &&
+                  // provedorDeBloc.ultimoValorCodigoConsRegisterOne != ""
+                  ) {
                 verificadorInternet.verificarConexion().then((valorRecibido) {
                   if (valorRecibido[Constantes.estado] ==
                       Constantes.respuesta_estado_ok) {
@@ -183,7 +237,7 @@ class _RegisterPartOneState extends State<RegisterPartOne> {
                 });
               } else {
                 final SnackBar snackBar = new SnackBar(
-                  backgroundColor: Colores.COLOR_AZUL_ATC_FARMA,
+                  backgroundColor: Colors.red,
                   content: Text("Llenar todos los campos correctamente"),
                 );
 
@@ -191,16 +245,20 @@ class _RegisterPartOneState extends State<RegisterPartOne> {
               }
             },
             child: Container(
-                child: Text("Siguiente"),
-                padding:
-                    EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0)),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20.0),
-                    topRight: Radius.circular(20.0))),
-            elevation: 30.0,
-            color: Color(0xff6E55BD),
-            textColor: Colors.white,
+              
+              child: Text("Siguiente", style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold, color: Colors.white),),
+              padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 12.0)
+            ),
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50)
+              ),
+              elevation: 30.0,
+              primary: Color(0xff6E55BD),
+              
+
+            ),
+          ),
           );
         });
   }
@@ -226,24 +284,34 @@ class _RegisterPartOneState extends State<RegisterPartOne> {
     return StreamBuilder(
         stream: provedorDeBloc.password2Stream,
         builder: (BuildContext contexto, AsyncSnapshot asyncSnapshot) {
-          return TextField(
-            keyboardType: TextInputType.text,
-            obscureText: true,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                filled: true,
-                fillColor: Colors.white,
-                prefixIcon: Icon(Icons.lock_outline),
-                hintText: "Contraseña",
-                // labelText: "Contraseña",
-                errorStyle: TextStyle(color: Colors.white),
-                errorText: (provedorDeBloc.ultimoValorPassword2 == "")
-                    ? null
-                    : asyncSnapshot.error),
-            onChanged: (value) {
-              provedorDeBloc.addDataToStreamPassword2(value);
-            },
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child:Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('CONTRASEñA:', style: TextStyle(color: Color(0xff8B3192), fontWeight: FontWeight.bold),),
+                TextField(
+                  keyboardType: TextInputType.text,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0), borderSide: BorderSide(color: Colors.transparent)),
+                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.circular(50.0) ),
+                        disabledBorder: InputBorder.none,
+                        fillColor: Colors.grey[100],
+                        filled: true,
+                      hintText: "Contraseña",
+                      // labelText: "Contraseña",
+                      errorStyle: TextStyle(color: Colors.white),
+                      errorText: (provedorDeBloc.ultimoValorPassword2 == "")
+                          ? null
+                          : asyncSnapshot.error),
+                  onChanged: (value) {
+                    provedorDeBloc.addDataToStreamPassword2(value);
+                  },
+                ),
+              ],
+            )
           );
         });
   }
@@ -253,23 +321,34 @@ class _RegisterPartOneState extends State<RegisterPartOne> {
     return StreamBuilder(
         stream: provedorDeBloc.emailStream,
         builder: (BuildContext contexto, AsyncSnapshot asyncSnapshot) {
-          return TextField(
-            keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                fillColor: Colors.white,
-                filled: true,
-                prefixIcon: Icon(Icons.mail),
-                hintText: "Correo electrónico",
-                //labelText: "Correo electrónico",
-                errorStyle: TextStyle(color: Colors.white),
-                errorText: (provedorDeBloc.ultimoValorCorreo == "")
-                    ? null
-                    : asyncSnapshot.error),
-            onChanged: (value) {
-              provedorDeBloc.addDataToStreamEmail(value);
-            },
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('CORREO ELECTRONICO:', style: TextStyle(color: Color(0xff8B3192), fontWeight: FontWeight.bold),),
+                TextField(
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0), borderSide: BorderSide(color: Colors.transparent)),
+                        enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.circular(50.0) ),
+                        disabledBorder: InputBorder.none,
+                        fillColor: Colors.grey[100],
+                        filled: true,
+                        hintText: "Correo electrónico",
+                      //labelText: "Correo electrónico",
+                      errorStyle: TextStyle(color: Colors.white),
+                      errorText: (provedorDeBloc.ultimoValorCorreo == "")
+                          ? null
+                          : asyncSnapshot.error
+                  ),
+                  onChanged: (value) {
+                    provedorDeBloc.addDataToStreamEmail(value);
+                  },
+                ),
+              ],
+            )
           );
         });
   }
@@ -279,65 +358,67 @@ class _RegisterPartOneState extends State<RegisterPartOne> {
     return StreamBuilder(
         stream: provedorDeBloc.lastnamelStream,
         builder: (BuildContext contexto, AsyncSnapshot<String> asyncSnapshot) {
-          return TextField(
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                filled: true,
-                fillColor: Colors.white,
-                prefixIcon: Icon(Icons.person),
-                hintText: "Apellido(s)",
-                // labelText: "Apellido(s)",
-                errorText: asyncSnapshot.error),
-            onChanged: (value) {
-              provedorDeBloc.addDataToStreamLastName(value);
-            },
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('APELLIDO(S):', style: TextStyle(color: Color(0xff8B3192), fontWeight: FontWeight.bold),),
+                TextField(
+                keyboardType: TextInputType.text,
+                decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0), borderSide: BorderSide(color: Colors.transparent)),
+                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.circular(50.0) ),
+                    disabledBorder: InputBorder.none,
+                    fillColor: Colors.grey[100],
+                    filled: true,
+                    hintText: "Apellido(s)",
+                    // labelText: "Apellido(s)",
+                    errorText: asyncSnapshot.error),
+                onChanged: (value) {
+                  provedorDeBloc.addDataToStreamLastName(value);
+                },
+              ),
+
+              ],
+            )
           );
         });
   }
 
   Widget textFieldNombre(BuildContext contextoTextFieldNombre) {
     final provedorDeBloc = Provider.of(contextoTextFieldNombre);
+
     return StreamBuilder(
         stream: provedorDeBloc.nameStream,
         builder: (BuildContext contexto, AsyncSnapshot<String> asyncSnapshot) {
-          return TextField(
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                fillColor: Colors.white,
-                filled: true,
-                prefixIcon: Icon(Icons.person),
-                hintText: "Nombre(s)",
-                // labelText: "Nombre(s)",
-                errorText: asyncSnapshot.error),
-            onChanged: (value) {
-              provedorDeBloc.addDataToStreamName(value);
-            },
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal:  20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('NOMBRE(S):', style: TextStyle(color: Color(0xff8B3192), fontWeight: FontWeight.bold),),
+                TextField(
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0), borderSide: BorderSide(color: Colors.transparent)),
+                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.circular(50.0) ),
+                      disabledBorder: InputBorder.none,
+                      fillColor: Colors.grey[100],
+                      filled: true,
+                      hintText: "Nombre(s)",
+                      // labelText: "Nombre(s)",
+                      errorText: asyncSnapshot.error),
+                  onChanged: (value) {
+                    provedorDeBloc.addDataToStreamName(value);
+                  },
+                )
+              ],
+            ),
           );
         });
-  }
-
-  Widget _parteSuperior(BuildContext contextoParteSuperior) {
-
-    return SafeArea(
-      child: Row(
-        children: <Widget>[
-          TextButton(
-              onPressed: () {
-                // Navigator.pop(context);
-                Navigator.popAndPushNamed(context, WelcomePage.nameOfPage);
-              },
-              child: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.white,
-              )
-          ),
-        ],
-      ),
-    );
   }
 
   Widget _fondo() {
@@ -346,7 +427,7 @@ class _RegisterPartOneState extends State<RegisterPartOne> {
       width: double.infinity,
       height: double.infinity,
       child: Image(
-        image: AssetImage("assets/imagenes/bago-fondo-temp.png"),
+        image: AssetImage("assets/imagenes/bago-fondo-3.png"),
         fit: BoxFit.cover,
       ),
     );

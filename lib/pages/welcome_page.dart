@@ -191,6 +191,7 @@ void _obTenerInformacion(){ //prueba imei
   }
 
   Widget _bodyHome(BuildContext contexto) {
+    final sizePhone = MediaQuery.of(context).size;
     return SafeArea(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -198,6 +199,7 @@ void _obTenerInformacion(){ //prueba imei
           Expanded(child: Container()),
           Image(
             image: AssetImage('assets/icons/Logo-bago-blanco.png'),
+            width: sizePhone.width-40,
           ),
           Text(
             'A un click de tener lo que',
@@ -220,7 +222,7 @@ void _obTenerInformacion(){ //prueba imei
                 child: Container(   
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50.0),
-                    border: Border.all(width: 4.0, color: Color(0xff64D8F4))
+                    border: Border.all(width: 4.0, color: Color(0xff00FEE0))
                   ),
                   child: _botonOne(contexto)
                 )
@@ -232,7 +234,7 @@ void _obTenerInformacion(){ //prueba imei
                 child: Container(   
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50.0),
-                    border: Border.all(width: 4.0, color: Color(0xff64D8F4))
+                    border: Border.all(width: 4.0, color: Color(0xff00FEE0))
                   ),
                   child: _botonTwo(contexto)
                 )
