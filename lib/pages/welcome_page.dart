@@ -62,7 +62,7 @@ class _WelcomePageState extends State<WelcomePage> {
 
     return Scaffold(
         body: Stack(
-      children: <Widget>[_fondoPageView(context), _botonesDeABajo(context)],
+      children: <Widget>[_fondoPageView(context), _bodyHome(context)],
     ));
   }
 
@@ -190,46 +190,63 @@ void _obTenerInformacion(){ //prueba imei
   
   }
 
-  Widget _botonesDeABajo(BuildContext contexto) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              width: 15.0,
-            ),
-            Expanded(
-              child: Container(   
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50.0),
-                  border: Border.all(width: 4.0, color: Color(0xff64D8F4))
-                ),
-                child: _botonOne(contexto)
-              )
-            ),
-            SizedBox(
-              width: 5.0,
-            ),
-            Expanded(
-              child: Container(   
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50.0),
-                  border: Border.all(width: 4.0, color: Color(0xff64D8F4))
-                ),
-                child: _botonTwo(contexto)
-              )
-            ),
-            SizedBox(
-              width: 15.0,
-            ),
-          ],
-        ),
-        SizedBox(
-          height: 20.0,
-        )
-      ],
+  Widget _bodyHome(BuildContext contexto) {
+    return SafeArea(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Expanded(child: Container()),
+          Image(
+            image: AssetImage('assets/icons/Logo-bago-blanco.png'),
+          ),
+          Text(
+            'A un click de tener lo que',
+            style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20.0),
+            textAlign: TextAlign.center,
+          ),
+          Text(
+            'mas te gusta',
+            style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20.0),
+            textAlign: TextAlign.center,
+          ),
+          Expanded(child: Container()),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                width: 10.0,
+              ),
+              Expanded(
+                child: Container(   
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50.0),
+                    border: Border.all(width: 4.0, color: Color(0xff64D8F4))
+                  ),
+                  child: _botonOne(contexto)
+                )
+              ),
+              SizedBox(
+                width: 5.0,
+              ),
+              Expanded(
+                child: Container(   
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50.0),
+                    border: Border.all(width: 4.0, color: Color(0xff64D8F4))
+                  ),
+                  child: _botonTwo(contexto)
+                )
+              ),
+              SizedBox(
+                width: 10.0,
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 20.0,
+          )
+        ],
+      ),
     );
   }
 
@@ -267,6 +284,7 @@ void _obTenerInformacion(){ //prueba imei
             image: AssetImage("assets/imagenes/bago-fondo-temp.jpeg"),
             fit: BoxFit.cover,
             // fit: BoxFit.cover,
+
           ));
 
       /*PageView(
