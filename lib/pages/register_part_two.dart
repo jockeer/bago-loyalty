@@ -132,7 +132,7 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
       child: SafeArea(
         child: Column(
         children: <Widget>[
-          SizedBox(height: 40.0,),
+          SizedBox(height: 20.0,),
           Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.0 ),
@@ -161,35 +161,41 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
 
   Widget _cuerpoDeCampos(BuildContext contextoCuerpo) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 30.0),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(40.0),
-          border: Border.all(color: Color(0xff00FEE0), width: 3.0)
-      ),
       child: Column(
         children: <Widget>[
-          textFieldCI(contextoCuerpo),
-          SizedBox(
-            height: 10.0,
+          Container(
+            padding: EdgeInsets.symmetric(vertical: 40.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(40.0),
+              border: Border.all(color: Color(0xff00FEE0), width: 3.0)
           ),
-          textFieldCiudadExpedicion(contextoCuerpo),
-          SizedBox(
-            height: 10.0,
+            child: Column(
+              children: [
+                textFieldCI(contextoCuerpo),
+                SizedBox(
+                  height: 10.0,
+                ),
+                textFieldCiudadExpedicion(contextoCuerpo),
+                SizedBox(
+                  height: 10.0,
+                ),
+                textFieldFechaNacimiento(contextoCuerpo),
+                SizedBox(
+                  height: 10.0,
+                ),
+                textFieldPais(contextoCuerpo),
+                SizedBox(
+                  height: 10.0,
+                ),
+                textFieldCiudad(contextoCuerpo),
+                SizedBox(
+                  height: 10.0,
+                ),
+                textFieldCelular(contextoCuerpo),
+              ],
+            ),
           ),
-          textFieldFechaNacimiento(contextoCuerpo),
-          SizedBox(
-            height: 10.0,
-          ),
-          textFieldPais(contextoCuerpo),
-          SizedBox(
-            height: 10.0,
-          ),
-          textFieldCiudad(contextoCuerpo),
-          SizedBox(
-            height: 10.0,
-          ),
-          textFieldCelular(contextoCuerpo),
           SizedBox(
             height: 10.0,
           ),
@@ -335,11 +341,9 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
               child: Text("Registrar"),
               padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0)),
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(15.0),
-                  topRight: Radius.circular(15.0))),
+              borderRadius: BorderRadius.circular(20.0)),
           elevation: 30.0,
-          color: Colores.COLOR_NARANJA_ATC_FARMA,
+          color: Color(0xff7754C1),
           textColor: Colors.white,
         );
       },
