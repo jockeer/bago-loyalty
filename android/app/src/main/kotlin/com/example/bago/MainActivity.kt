@@ -1,4 +1,4 @@
-package com.example.bago
+package com.loyaltyclubs.bago
 
 import io.flutter.embedding.android.FlutterActivity
 

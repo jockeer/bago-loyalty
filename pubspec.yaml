@@ -7,7 +7,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.2.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -36,7 +36,13 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.8.1 
 
+flutter_icons:
+  android: "launcher_icon" 
+  ios: true
+  image_path: "assets/icons/icon_bago.png"
+  adaptive_icon_background: "assets/icons/icon_bago.png"
 
 flutter:
 

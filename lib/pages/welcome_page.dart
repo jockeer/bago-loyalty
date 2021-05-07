@@ -146,15 +146,14 @@ void _obTenerInformacion(){ //prueba imei
   }
 
   Widget _botonOne(BuildContext contexto) {
-    return SafeArea(
-      child: ElevatedButton(
+    return 
+      ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 10.0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20.0),
-                topRight: Radius.circular(20.0))),
-          primary: Color.fromRGBO(110, 85, 189, 1),
+            borderRadius: BorderRadius.circular(50)
+          ),
+          primary: Color(0xffBF0183),
           minimumSize: Size.fromHeight(50.0)
         ),
        
@@ -162,23 +161,21 @@ void _obTenerInformacion(){ //prueba imei
           Navigator.pushNamed(contexto, LoginPage.nameOfPage);
         },
         child: Text(
-          "Ingresar",
-          style: TextStyle(color: Colors.white),
+          "Ingresa",
+          style: TextStyle(color: Colors.white, fontSize: 25.0, fontWeight: FontWeight.bold),
         ),
-      ),
+
     );
   }
 
   Widget _botonTwo(BuildContext contexto) {
-    return SafeArea(
-      child: ElevatedButton(
+    return  ElevatedButton(
         style: ElevatedButton.styleFrom(
           elevation: 10.0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20.0),
-                topRight: Radius.circular(20.0))),
-          primary: Color.fromRGBO(255, 255, 255, 1),
+            borderRadius: BorderRadius.circular(50.0)
+          ),
+          primary: Color(0xff7754C1),
           minimumSize: Size.fromHeight(50.0)
         ),
         onPressed: () {
@@ -186,11 +183,11 @@ void _obTenerInformacion(){ //prueba imei
         },
         
         child: Text(
-          "Registrarse",
-          style: TextStyle(color: Color.fromRGBO(110, 85, 189, 1)),
+          "Registrate",
+          style: TextStyle(color: Color(0xffFFFFFF), fontSize: 25.0, fontWeight: FontWeight.bold),
         ),
-      ),
     );
+  
   }
 
   Widget _botonesDeABajo(BuildContext contexto) {
@@ -203,11 +200,27 @@ void _obTenerInformacion(){ //prueba imei
             SizedBox(
               width: 15.0,
             ),
-            Expanded(child: _botonOne(contexto)),
-            SizedBox(
-              width: 30.0,
+            Expanded(
+              child: Container(   
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50.0),
+                  border: Border.all(width: 4.0, color: Color(0xff64D8F4))
+                ),
+                child: _botonOne(contexto)
+              )
             ),
-            Expanded(child: _botonTwo(contexto)),
+            SizedBox(
+              width: 5.0,
+            ),
+            Expanded(
+              child: Container(   
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50.0),
+                  border: Border.all(width: 4.0, color: Color(0xff64D8F4))
+                ),
+                child: _botonTwo(contexto)
+              )
+            ),
             SizedBox(
               width: 15.0,
             ),
@@ -251,8 +264,9 @@ void _obTenerInformacion(){ //prueba imei
       return _fondoOne(
           contexto,
           Image(
-            image: AssetImage("assets/imagenes/fondo_incial_bago_temp.png"),
+            image: AssetImage("assets/imagenes/bago-fondo-temp.jpeg"),
             fit: BoxFit.cover,
+            // fit: BoxFit.cover,
           ));
 
       /*PageView(

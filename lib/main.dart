@@ -21,8 +21,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final preferencias = SharedPreferencesapp();
 
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light
-        .copyWith(statusBarColor: Colors.transparent));
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle.light.copyWith(
+        statusBarColor: Color(0xffBF0183),
+        
+      )
+    );
 
     return GestureDetector(
       onTap: () {

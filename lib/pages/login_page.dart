@@ -84,11 +84,12 @@ class _LoginPageState extends State<LoginPage> {
     final tamanoPhone = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           _buttonBack(context),
 
           Container(
-            width: tamanoPhone.width * 0.7,
+            width: tamanoPhone.width * 0.6,
             child: Image(
               image: AssetImage("assets/icons/logo-bago.png"),
               fit: BoxFit.cover,
@@ -98,33 +99,40 @@ class _LoginPageState extends State<LoginPage> {
           //  SizedBox( height: 50.0, ),
 
           Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.0),
-                color: Colores.COLOR_CAFE_CONTENEDOR_LOYALTY,
-                /*    boxShadow: <BoxShadow>[
-                                          BoxShadow(
-                                          color: Color.fromRGBO(102, 10, 11, 1.0),
-                                          blurRadius: 3.0,
-                                          offset: Offset(0.0, 5.0),
-                                          spreadRadius: 3.0
-                                        )
-                                      ] */
-              ),
-              padding: EdgeInsets.all(20.0),
-              width: tamanoPhone.width * 0.85,
+            margin: EdgeInsets.symmetric(horizontal: 20.0),
+            padding: EdgeInsets.all(0),
+            decoration: BoxDecoration(
+              border: Border.all(width: 4.0, color: Colors.blue[200]),
+              borderRadius: BorderRadius.circular(20.0)
+            ),
+            child: Card(
+              color: Colors.white,
+              margin: EdgeInsets.all(0),
+              clipBehavior: Clip.antiAlias,
+              shape: RoundedRectangleBorder(borderRadius:  BorderRadius.circular(15.0)),
               child: Column(
-                children: <Widget>[
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(15.0),topRight: Radius.circular(15.0) ),
+                      color: Color(0xff6E55BD)
+                    ) ,
+                    height: 50.0,
+                  ),
+                  SizedBox(height: 20.0,),
                   _textfieldUsuario(context),
-                  SizedBox(
-                    height: 30.0,
-                  ),
+                  SizedBox(height: 20.0,),
+                 
                   _textfieldContrasena(context),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  _botonEnviar(context), // este es para probar el imei
+                  SizedBox(height: 20.0,),
+
+                  _botonEnviar(context),
+                 
+                  SizedBox(height: 20.0,),
                 ],
-              )),
+              ),
+            ),
+          ),
           SizedBox(
             height: 40.0,
           ),
@@ -194,83 +202,88 @@ class _LoginPageState extends State<LoginPage> {
     return StreamBuilder(
       stream: provedorBlocLoyalty.validarCampos,
       builder: (BuildContext contexto, AsyncSnapshot asyncSnapshot) {
-        return RaisedButton(
-          onPressed: () {
-            if (!asyncSnapshot.hasError &&
-                provedorBlocLoyalty.ultimoValorCI != null &&
-                provedorBlocLoyalty.ultimoValorContrasena != null &&
-                provedorBlocLoyalty.ultimoValorCI != "" &&
-                provedorBlocLoyalty.ultimoValorContrasena != "") {
-              Future<Map<String, dynamic>> resultadoConexion =
-                  verificarConexion();
-              resultadoConexion.then((mapaRecibido) {
-                if (mapaRecibido[Constantes.estado] ==
-                    Constantes.respuesta_estado_ok) {
-                  _submit();
-                  Future<bool> resultado = verificarInformacion(
-                      provedorBlocLoyalty.ultimoValorCI,
-                      provedorBlocLoyalty.ultimoValorContrasena,
-                      contexto);
-                  resultado.then((onvalue) {
-                    if (onvalue) {
-                      // Navigator.of(context).popAndPushNamed(
-                      //                      HomePage.nameOfPage
-                      //            );
-                      TokenDeviceUpdateProvider tokenDeviceUpdateProvider =
-                          TokenDeviceUpdateProvider();
-                      PushNotificacionProvider pushNotificacionProvider =
-                          new PushNotificacionProvider();
-                      //SE QUITO TODO ESTO YA QUE AUN NO ESTA EL JSON
-                      pushNotificacionProvider.obtainToken().then((token) {
-                        print(token);
-                        tokenDeviceUpdateProvider
-                            .updateTokenDevice(token)
-                            .then((onValue) {
-                          provedorBlocLoyalty.addDataToStreamCI("");
-                          provedorBlocLoyalty.addDataToStreamPassword("");
-                          Navigator.of(context)
-                              .popAndPushNamed(HomePage.nameOfPage);
+        return Container(
+          child: ElevatedButton(
+            onPressed: () {
+              if (!asyncSnapshot.hasError &&
+                  provedorBlocLoyalty.ultimoValorCI != null &&
+                  provedorBlocLoyalty.ultimoValorContrasena != null &&
+                  provedorBlocLoyalty.ultimoValorCI != "" &&
+                  provedorBlocLoyalty.ultimoValorContrasena != "") {
+                Future<Map<String, dynamic>> resultadoConexion =
+                    verificarConexion();
+                resultadoConexion.then((mapaRecibido) {
+                  if (mapaRecibido[Constantes.estado] ==
+                      Constantes.respuesta_estado_ok) {
+                    _submit();
+                    Future<bool> resultado = verificarInformacion(
+                        provedorBlocLoyalty.ultimoValorCI,
+                        provedorBlocLoyalty.ultimoValorContrasena,
+                        contexto);
+                    resultado.then((onvalue) {
+                      if (onvalue) {
+                        // Navigator.of(context).popAndPushNamed(
+                        //                      HomePage.nameOfPage
+                        //            );
+                        TokenDeviceUpdateProvider tokenDeviceUpdateProvider =
+                            TokenDeviceUpdateProvider();
+                        PushNotificacionProvider pushNotificacionProvider =
+                            new PushNotificacionProvider();
+                        //SE QUITO TODO ESTO YA QUE AUN NO ESTA EL JSON
+                        pushNotificacionProvider.obtainToken().then((token) {
+                          print(token);
+                          tokenDeviceUpdateProvider
+                              .updateTokenDevice(token)
+                              .then((onValue) {
+                            provedorBlocLoyalty.addDataToStreamCI("");
+                            provedorBlocLoyalty.addDataToStreamPassword("");
+                            Navigator.of(context)
+                                .popAndPushNamed(HomePage.nameOfPage);
+                          });
                         });
-                      });
-                    } else {
-                      final SnackBar snackBar = new SnackBar(
-                        backgroundColor: Colores.COLOR_AZUL_ATC_FARMA,
-                        content: Text(
-                            "Datos incorrectos, por favor revisar sus datos"),
-                      );
+                      } else {
+                        final SnackBar snackBar = new SnackBar(
+                          backgroundColor: Colores.COLOR_AZUL_ATC_FARMA,
+                          content: Text(
+                              "Datos incorrectos, por favor revisar sus datos"),
+                        );
 
-                      Scaffold.of(contexto).showSnackBar(snackBar);
-                    }
-                  });
-                } else {
-                  final SnackBar snackBar = new SnackBar(
-                    backgroundColor: Colores.COLOR_AZUL_ATC_FARMA,
-                    content: Text(mapaRecibido[Constantes.mensaje]),
-                  );
+                        Scaffold.of(contexto).showSnackBar(snackBar);
+                      }
+                    });
+                  } else {
+                    final SnackBar snackBar = new SnackBar(
+                      backgroundColor: Colores.COLOR_AZUL_ATC_FARMA,
+                      content: Text(mapaRecibido[Constantes.mensaje]),
+                    );
 
-                  Scaffold.of(contexto).showSnackBar(snackBar);
-                  return;
-                }
-              });
-            } else {
-              final SnackBar snackBar = new SnackBar(
-                backgroundColor: Colores.COLOR_AZUL_ATC_FARMA,
-                content: Text("Llenar todos los campos"),
-              );
+                    Scaffold.of(contexto).showSnackBar(snackBar);
+                    return;
+                  }
+                });
+              } else {
+                final SnackBar snackBar = new SnackBar(
+                  backgroundColor: Colores.COLOR_AZUL_ATC_FARMA,
+                  content: Text("Llenar todos los campos"),
+                );
 
-              Scaffold.of(contexto).showSnackBar(snackBar);
-            }
-          },
-          child: Container(
-              child: Text("Ingresar"),
-              padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0)),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(15.0),
-                  topRight: Radius.circular(15.0))),
-          elevation: 30.0,
-          color: Colores.COLOR_NARANJA_ATC_FARMA,
-          textColor: Colors.white,
+                Scaffold.of(contexto).showSnackBar(snackBar);
+              }
+            },
+            child: Container(
+                child: Text("Ingresar"),
+                padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0)
+            ),
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
+                
+              ),
+              elevation: 30.0,
+              primary: Color(0xff6E55BD),
+
+            ),
+          ),
         );
       },
     );
@@ -281,24 +294,27 @@ class _LoginPageState extends State<LoginPage> {
     return StreamBuilder(
         stream: provider.contrasenaStream,
         builder: (BuildContext context, AsyncSnapshot<String> asyncSnapshot) {
-          return TextField(
-            controller: textEditingControllerPassword,
-            obscureText: true,
-            keyboardType: TextInputType.visiblePassword,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                prefixIcon: Icon(Icons.lock_outline),
-                hintText: "Contraseña",
-                // labelText: "Contraseña",
-                filled: true,
-                fillColor: Colors.white,
-                errorStyle: TextStyle(color: Colors.white),
-                errorText: asyncSnapshot.error),
-            onChanged: (value) {
-              this.preferencias.agregarValor(Constantes.last_password, value);
-              provider.addDataToStreamPassword(value);
-            },
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: TextField(
+              controller: textEditingControllerPassword,
+              obscureText: true,
+              keyboardType: TextInputType.visiblePassword,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  prefixIcon: Icon(Icons.lock_outline),
+                  hintText: "Contraseña",
+                  labelText: "Contraseña",
+                  filled: true,
+                  fillColor: Colors.white,
+                  errorStyle: TextStyle(color: Colors.red),
+                  errorText: asyncSnapshot.error),
+              onChanged: (value) {
+                this.preferencias.agregarValor(Constantes.last_password, value);
+                provider.addDataToStreamPassword(value);
+              },
+            ),
           );
         });
   }
@@ -308,23 +324,26 @@ class _LoginPageState extends State<LoginPage> {
     return StreamBuilder(
         stream: provedorDeBloc.ciStream,
         builder: (BuildContext contexto, AsyncSnapshot asyncSnapshot) {
-          return TextField(
-            controller: this.textEditingController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0)),
-                prefixIcon: Icon(Icons.person),
-                hintText: "Número de carnet",
-                //  labelText: "Número de carnet",
-                fillColor: Colors.white,
-                filled: true,
-                errorStyle: TextStyle(color: Colors.white),
-                errorText: asyncSnapshot.error),
-            onChanged: (value) {
-              this.preferencias.agregarValor(Constantes.last_ci, value);
-              provedorDeBloc.addDataToStreamCI(value);
-            },
+          return Container(
+            padding: EdgeInsets.symmetric(horizontal: 10.0),
+            child: TextField(
+              controller: this.textEditingController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0)),
+                  prefixIcon: Icon(Icons.person),
+                  hintText: "Número de carnet",
+                  labelText: "Número de carnet",
+                  fillColor: Colors.white,
+                  filled: true,
+                  errorStyle: TextStyle(color: Colors.red),
+                  errorText: asyncSnapshot.error),
+              onChanged: (value) {
+                this.preferencias.agregarValor(Constantes.last_ci, value);
+                provedorDeBloc.addDataToStreamCI(value);
+              },
+            ),
           );
         });
   }
@@ -335,7 +354,7 @@ class _LoginPageState extends State<LoginPage> {
       width: double.infinity,
       height: double.infinity,
       child: Image(
-        image: AssetImage("assets/imagenes/fondo_fridolin.jpg"),
+        image: AssetImage("assets/imagenes/bago-fondo-temp.png"),
         fit: BoxFit.cover,
       ),
     );
