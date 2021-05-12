@@ -144,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
               },
               child: Text(
                 "¿Olvidaste tu contraseña?",
-                style: new TextStyle(color: Colors.white),
+                style: new TextStyle(color: Color(0xff8B3192),fontWeight: FontWeight.bold),
               ))
         ],
       ),
@@ -203,6 +203,10 @@ class _LoginPageState extends State<LoginPage> {
       stream: provedorBlocLoyalty.validarCampos,
       builder: (BuildContext contexto, AsyncSnapshot asyncSnapshot) {
         return Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50.0),
+            border: Border.all(width: 3.0, color: Color(0xff00FEE0))
+          ),
           child: ElevatedButton(
             onPressed: () {
               if (!asyncSnapshot.hasError &&
@@ -272,7 +276,7 @@ class _LoginPageState extends State<LoginPage> {
             },
             child: Container(
                 child: Text("Ingresar"),
-                padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0)
+                padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 17.0)
             ),
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
@@ -301,13 +305,17 @@ class _LoginPageState extends State<LoginPage> {
               obscureText: true,
               keyboardType: TextInputType.visiblePassword,
               decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
-                  prefixIcon: Icon(Icons.lock_outline),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0), borderSide: BorderSide(color: Colors.transparent)),
+                  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.circular(50.0) ),
+                  disabledBorder: InputBorder.none,
+                  fillColor: Colors.grey[100],
+                  filled: true,
+                  prefixIcon: Icon(Icons.lock_rounded),
+                  // suffixIcon: Icon(Icons.info_outline_rounded),
+                  
                   hintText: "Contraseña",
                   labelText: "Contraseña",
-                  filled: true,
-                  fillColor: Colors.white,
                   errorStyle: TextStyle(color: Colors.red),
                   errorText: asyncSnapshot.error),
               onChanged: (value) {
@@ -330,13 +338,16 @@ class _LoginPageState extends State<LoginPage> {
               controller: this.textEditingController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0)),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0), borderSide: BorderSide(color: Colors.transparent)),
+                  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.circular(50.0) ),
+                  disabledBorder: InputBorder.none,
+                  fillColor: Colors.grey[100],
+                  filled: true,
                   prefixIcon: Icon(Icons.person),
+                  // suffixIcon: Icon(Icons.info_outline_rounded),
                   hintText: "Número de carnet",
                   labelText: "Número de carnet",
-                  fillColor: Colors.white,
-                  filled: true,
                   errorStyle: TextStyle(color: Colors.red),
                   errorText: asyncSnapshot.error),
               onChanged: (value) {
@@ -354,7 +365,7 @@ class _LoginPageState extends State<LoginPage> {
       width: double.infinity,
       height: double.infinity,
       child: Image(
-        image: AssetImage("assets/imagenes/bago-fondo-temp.png"),
+        image: AssetImage("assets/imagenes/bago-fondo-3.png"),
         fit: BoxFit.cover,
       ),
     );

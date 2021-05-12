@@ -16,6 +16,7 @@ import 'package:bago/providers/register_provider.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class RegisterPartTwo extends StatefulWidget {
+  
   RegisterPartTwo({Key key}) : super(key: key);
   static final nameOfPage = 'RegisterPartTwo';
   @override
@@ -23,6 +24,7 @@ class RegisterPartTwo extends StatefulWidget {
 }
 
 class _RegisterPartTwoState extends State<RegisterPartTwo> {
+  String optSelect='+591';
   bool cargando;
   Base base;
   VerificadorInternet verificadorDeInternet;
@@ -193,6 +195,10 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
                   height: 10.0,
                 ),
                 textFieldCelular(contextoCuerpo),
+                SizedBox(
+                  height: 10.0,
+                ),
+                textFieldTelefono(contextoCuerpo),
               ],
             ),
           ),
@@ -203,7 +209,10 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
           SizedBox(
             height: 10.0,
           ),
-          _btnRegister(contextoCuerpo)
+          _btnRegister(contextoCuerpo),
+          SizedBox(
+            height: 20.0,
+          ),
         ],
       ),
     );
@@ -256,95 +265,106 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
     return StreamBuilder(
       stream: provedorBlocLoyalty.validarRegistrosParteTwo,
       builder: (BuildContext contexto, AsyncSnapshot asyncSnapshot) {
-        return RaisedButton(
-          onPressed: () {
-            if (provedorBlocLoyalty.ultimoValorCI_NIT != null &&
-                provedorBlocLoyalty.ultimoValorCI_NIT != "" &&
-                provedorBlocLoyalty.ultimoValorCiudadExped != null &&
-                provedorBlocLoyalty.ultimoValorCiudadExped != "" &&
-                provedorBlocLoyalty.ultimoValorFechaNac != null &&
-                provedorBlocLoyalty.ultimoValorFechaNac != "" &&
-                provedorBlocLoyalty.ultimoValorPais != null &&
-                provedorBlocLoyalty.ultimoValorPais != "" &&
-                provedorBlocLoyalty.ultimoValorCiudad != null &&
-                provedorBlocLoyalty.ultimoValorCiudad != "" &&
-                provedorBlocLoyalty.ultimoValorCelular != null &&
-                provedorBlocLoyalty.ultimoValorCelular != "" &&
-                // provedorBlocLoyalty.ultimoValorTermsAndCond != null &&
-                // provedorBlocLoyalty.ultimoValorTermsAndCond &&
-                !asyncSnapshot.hasError) {
-              verificadorDeInternet.verificarConexion().then((onValue) {
-                RegisterProvider registrarProvedor = new RegisterProvider();
-                if (onValue[Constantes.estado] ==
-                    Constantes.respuesta_estado_ok) {
-                  _submit();
-                  this.mapaObtenidoDePrimerRegistro.addAll({
-                    Constantes.ID_CARD: provedorBlocLoyalty.ultimoValorCI_NIT,
-                    Constantes.EXPEDITION:
-                        provedorBlocLoyalty.ultimoValorCiudadExped,
-                    Constantes.COUNTRY: provedorBlocLoyalty.ultimoValorPais,
-                    Constantes.CITY: provedorBlocLoyalty.ultimoValorCiudad,
-                    Constantes.DATE: provedorBlocLoyalty.ultimoValorFechaNac,
-                    Constantes.CELL_PHONE:
-                        provedorBlocLoyalty.ultimoValorCelular,
-                  });
-                  print(this.mapaObtenidoDePrimerRegistro);
+        return Container(
+           decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50.0),
+                    border: Border.all(width: 3.0, color: Color(0xff00FEE0))
+              ),
+          child: ElevatedButton(
+            onPressed: () {
+              if (provedorBlocLoyalty.ultimoValorCI_NIT != null &&
+                  provedorBlocLoyalty.ultimoValorCI_NIT != "" &&
+                  provedorBlocLoyalty.ultimoValorCiudadExped != null &&
+                  provedorBlocLoyalty.ultimoValorCiudadExped != "" &&
+                  provedorBlocLoyalty.ultimoValorFechaNac != null &&
+                  provedorBlocLoyalty.ultimoValorFechaNac != "" &&
+                  provedorBlocLoyalty.ultimoValorPais != null &&
+                  provedorBlocLoyalty.ultimoValorPais != "" &&
+                  provedorBlocLoyalty.ultimoValorCiudad != null &&
+                  provedorBlocLoyalty.ultimoValorCiudad != "" &&
+                  provedorBlocLoyalty.ultimoValorCelular != null &&
+                  provedorBlocLoyalty.ultimoValorCelular != "" &&
+                  // provedorBlocLoyalty.ultimoValorTermsAndCond != null &&
+                  // provedorBlocLoyalty.ultimoValorTermsAndCond &&
+                  !asyncSnapshot.hasError) {
+                verificadorDeInternet.verificarConexion().then((onValue) {
+                  RegisterProvider registrarProvedor = new RegisterProvider();
+                  if (onValue[Constantes.estado] ==
+                      Constantes.respuesta_estado_ok) {
+                    _submit();
+                    this.mapaObtenidoDePrimerRegistro.addAll({
+                      Constantes.ID_CARD: provedorBlocLoyalty.ultimoValorCI_NIT,
+                      Constantes.EXPEDITION:
+                          provedorBlocLoyalty.ultimoValorCiudadExped,
+                      Constantes.COUNTRY: provedorBlocLoyalty.ultimoValorPais,
+                      Constantes.CITY: provedorBlocLoyalty.ultimoValorCiudad,
+                      Constantes.DATE: provedorBlocLoyalty.ultimoValorFechaNac,
+                      Constantes.CELL_PHONE:
+                          provedorBlocLoyalty.ultimoValorCelular,
+                    });
+                    print(this.mapaObtenidoDePrimerRegistro);
 
-                  registrarProvedor
-                      .registerUser(this.mapaObtenidoDePrimerRegistro)
-                      .then((onValue) {
-                    if (onValue[Constantes.estado] ==
-                        Constantes.respuesta_estado_ok) {
-                      print(onValue);
-                      this.setState(() {
-                        this.cargando = false;
-                      });
-                      base.showSnackBar(onValue[Constantes.mensaje], contexto,
-                          Colores.COLOR_AZUL_ATC_FARMA);
-                      preferencias.agregarValor(
-                          Constantes.ci,
-                          this.mapaObtenidoDePrimerRegistro[
-                              Constantes.ID_CARD]);
-                      preferencias.agregarValor(
-                          Constantes.ciUser,
-                          this.mapaObtenidoDePrimerRegistro[
-                              Constantes.ID_CARD]);
-                      preferencias.agregarValor(
-                          Constantes.password,
-                          this.mapaObtenidoDePrimerRegistro[
-                              Constantes.password]);
-                      String pin = onValue[Constantes.pin].toString();
-                      llenarElMapaAPasar(pin);
-                      Navigator.of(contextoBntRegister).popAndPushNamed(
-                          EnterPinPage.nameOfPage,
-                          arguments: this.mapaParaPasarAlPin);
-                      print(pin);
-                    } else {
-                      this.setState(() {
-                        this.cargando = false;
-                      });
-                      base.showSnackBar(onValue[Constantes.mensaje], contexto,
-                          Colores.COLOR_AZUL_ATC_FARMA);
-                    }
-                  });
-                } else {
-                  base.showSnackBar(Constantes.error_conexion, contexto,
-                      Colores.COLOR_AZUL_ATC_FARMA);
-                }
-              });
-            } else {
-              base.showSnackBar("Llenar los datos correctamente", contexto,
-                  Colores.COLOR_AZUL_ATC_FARMA);
-            }
-          },
-          child: Container(
-              child: Text("Registrar"),
-              padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 15.0)),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20.0)),
-          elevation: 30.0,
-          color: Color(0xff7754C1),
-          textColor: Colors.white,
+                    registrarProvedor
+                        .registerUser(this.mapaObtenidoDePrimerRegistro)
+                        .then((onValue) {
+                      if (onValue[Constantes.estado] ==
+                          Constantes.respuesta_estado_ok) {
+                        print(onValue);
+                        this.setState(() {
+                          this.cargando = false;
+                        });
+                        base.showSnackBar(onValue[Constantes.mensaje], contexto,
+                            Colores.COLOR_AZUL_ATC_FARMA);
+                        preferencias.agregarValor(
+                            Constantes.ci,
+                            this.mapaObtenidoDePrimerRegistro[
+                                Constantes.ID_CARD]);
+                        preferencias.agregarValor(
+                            Constantes.ciUser,
+                            this.mapaObtenidoDePrimerRegistro[
+                                Constantes.ID_CARD]);
+                        preferencias.agregarValor(
+                            Constantes.password,
+                            this.mapaObtenidoDePrimerRegistro[
+                                Constantes.password]);
+                        String pin = onValue[Constantes.pin].toString();
+                        llenarElMapaAPasar(pin);
+                        Navigator.of(contextoBntRegister).popAndPushNamed(
+                            EnterPinPage.nameOfPage,
+                            arguments: this.mapaParaPasarAlPin);
+                        print(pin);
+                      } else {
+                        this.setState(() {
+                          this.cargando = false;
+                        });
+                        base.showSnackBar(onValue[Constantes.mensaje], contexto,
+                            Colores.COLOR_AZUL_ATC_FARMA);
+                      }
+                    });
+                  } else {
+                    base.showSnackBar(Constantes.error_conexion, contexto,
+                        Colores.COLOR_AZUL_ATC_FARMA);
+                  }
+                });
+              } else {
+                base.showSnackBar("Llenar los datos correctamente", contexto,
+                    Colors.red);
+              }
+            },
+            child: Container(
+               
+                child: Text("Registrar"),
+                padding: EdgeInsets.symmetric(horizontal: 50.0, vertical: 17.0)
+            ),
+            style: ElevatedButton.styleFrom(
+                  
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50.0)),
+              // elevation: 30.0,
+              primary: Color(0xff7754C1),
+
+            ),
+          ),
         );
       },
     );
@@ -964,7 +984,7 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          FlatButton(
+            TextButton(
               onPressed: () {
                 // Navigator.pop(context);
                 provedorBlocLoyalty.addDataToToStreamCi_Nit("");
@@ -996,4 +1016,69 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
       ),
     );
   }
+
+  Widget textFieldTelefono(BuildContext contextoCuerpo) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: Color(0xffBF0183),
+            borderRadius: BorderRadius.only(topLeft: Radius.circular(50.0),bottomLeft: Radius.circular(50.0))
+          ),
+          // width: 70.0,
+          margin: EdgeInsets.all(0.0),
+          padding: EdgeInsets.symmetric(horizontal: 10.0),
+          height: 40.0,
+          child: DropdownButton(
+            dropdownColor: Color(0xffBF0183),
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            icon: Icon(Icons.arrow_drop_down_circle_outlined, color: Colors.white, ),
+            value: optSelect,
+            items: [
+              DropdownMenuItem(child: Text('+591', ), value: '+591', ),
+              DropdownMenuItem(child: Text('+111'), value: '+111',),
+              DropdownMenuItem(child: Text('+222'), value: '+222',),
+              DropdownMenuItem(child: Text('+333'), value: '+333',),
+            ],
+            onChanged: (opt){
+              setState(() {
+                optSelect = opt;
+              });
+            },
+          ),
+          
+        ),
+        Container(
+          width: 150.0,
+          height: 40.0,
+          child: TextField(
+          // controller: this.controladorTextEditingCiudadExpedicion,
+          enableInteractiveSelection: false,
+          keyboardType: TextInputType.phone,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+            border: OutlineInputBorder(borderRadius: BorderRadius.only(bottomRight: Radius.circular(50.0), topRight: Radius.circular(50.0) ), borderSide: BorderSide(color: Colors.transparent)),
+            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.only(bottomRight: Radius.circular(50.0), topRight: Radius.circular(50.0) ) ),
+            disabledBorder: InputBorder.none,
+            fillColor: Colors.grey[100],
+            filled: true,
+            hintText: "Telefono",
+            // labelText: "Ciudad de expedición",
+            errorStyle: TextStyle(color: Colors.white),
+            
+          ),
+          // onChanged: (value) {
+          //   provedorDeBloc.addDataToStreamCiudadExp(value);
+          // },
+          
+          ),
+        )
+        
+        
+      ],
+    );
+  }
 }
+
+

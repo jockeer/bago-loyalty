@@ -42,15 +42,15 @@ class _WelcomePageState extends State<WelcomePage> {
         .preferencias
         .agregarValor(Constantes.last_page, WelcomePage.nameOfPage);
 
-    /*  Timer.periodic(new Duration(seconds: 3),  (Timer timer){
-            if(_currentPage <= 0){
+    Timer.periodic(new Duration(seconds: 3),  (Timer timer){
+            if(_currentPage <= 1){
                   _currentPage++;
             }else{
                    _currentPage = 0;
             }
             _controladorPageView.animateToPage(_currentPage,  duration: Duration(milliseconds: 300), curve: Curves.easeIn);
 
-       }); */
+       }); 
 
     // prueba imei
   }
@@ -197,20 +197,7 @@ void _obTenerInformacion(){ //prueba imei
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(child: Container()),
-          Image(
-            image: AssetImage('assets/icons/Logo-bago-blanco.png'),
-            width: sizePhone.width-40,
-          ),
-          Text(
-            'A un click de tener lo que',
-            style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20.0),
-            textAlign: TextAlign.center,
-          ),
-          Text(
-            'mas te gusta',
-            style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 20.0),
-            textAlign: TextAlign.center,
-          ),
+          
           Expanded(child: Container()),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -280,24 +267,25 @@ void _obTenerInformacion(){ //prueba imei
         }
       });
 
-      return _fondoOne(
-          contexto,
-          Image(
-            image: AssetImage("assets/imagenes/bago-fondo-temp.jpeg"),
-            fit: BoxFit.cover,
-            // fit: BoxFit.cover,
+      return 
+      // _fondoOne(
+      //     contexto,
+      //     Image(
+      //       image: AssetImage("assets/imagenes/bago-fondo-temp.jpeg"),
+      //       fit: BoxFit.cover,
+      //       // fit: BoxFit.cover,
 
-          ));
+      //     ));
 
-      /*PageView(
+      PageView(
                controller: _controladorPageView,
                children: <Widget>[
                         
                         _fondoOne(contexto, Image(image: AssetImage("assets/imagenes/primera_pagina.png"), fit: BoxFit.cover,)),
-                      // _fondoOne(contexto, Image(image: AssetImage("assets/imagenes/segunda_pagina.png"), fit: BoxFit.cover,)),
-                      //  _fondoOne(contexto, Image(image: AssetImage("assets/imagenes/tercera_pagina.png"), fit: BoxFit.cover,))
+                      _fondoOne(contexto, Image(image: AssetImage("assets/imagenes/segunda_pagina.png"), fit: BoxFit.cover,)),
+                       _fondoOne(contexto, Image(image: AssetImage("assets/imagenes/primera_pagina.png"), fit: BoxFit.cover,))
                 ],
-              ); */
+              ); 
     });
   }
 }

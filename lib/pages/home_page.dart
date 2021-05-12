@@ -338,7 +338,7 @@ class _HomePageState extends State<HomePage>
                       width: tamanoPhone.width * 0.6,
                       height: tamanoPhone.width * 0.2,
                       child: Image(
-                        image: AssetImage("assets/imagenes/logo_fridolin.png"),
+                        image: AssetImage("assets/icons/Logo-bago-blanco.png"),
                         fit: BoxFit.cover,
                       )),
                   SizedBox(
@@ -426,12 +426,12 @@ class _HomePageState extends State<HomePage>
             ),
           ),
           Container(
-            width: tamanoPhone.width * 0.3,
-            height: tamanoPhone.width * 0.3,
+            width: tamanoPhone.width * 0.5,
+            // height: tamanoPhone.width * 0.3,
             child: Image(
               fit: BoxFit.contain,
               image: AssetImage(
-                  "assets/imagenes/imagenes_farmacorp/farmacorp_logo.png"),
+                  "assets/icons/Logo-bago-blanco.png"),
             ),
           ),
           Expanded(
@@ -803,7 +803,7 @@ class _HomePageState extends State<HomePage>
                   _textFieldWithPuntos(contexto),
                   Text(
                     puntos,
-                    style: TextStyle(color: Colors.black, fontSize: 40.0),
+                    style: TextStyle(color: Colors.black, fontSize: 20.0),
                   ),
                 ],
               );
@@ -849,7 +849,8 @@ class _HomePageState extends State<HomePage>
             (BuildContext contextoPuntos, AsyncSnapshot<String> asyncSnapshot) {
           return Text(
             (asyncSnapshot.hasData) ? asyncSnapshot.data : "0",
-            style: TextStyle(color: Colors.black, fontSize: 40.0),
+            style: TextStyle(color: Colors.black, fontSize: 60.0, fontWeight: FontWeight.bold,),
+            overflow: TextOverflow.ellipsis,
           );
         });
   }
@@ -1172,18 +1173,25 @@ class _HomePageState extends State<HomePage>
       length: 2,
       child: Container(
         width: tamanoPhone.width * 0.9,
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: Container(
+        
+        child: Container(
+          padding: EdgeInsets.all(10.0),
+          decoration: BoxDecoration(
+            color: Color(0xff7754C1),
+            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+            border: Border.all(width: 3.0, color: Color(0xff00FEE0))
+          ), 
+          child: Container(
             decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.circular(20.0))),
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(30.0))
+            ),
             child: Column(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
+                  padding: EdgeInsets.all(0.0),
                   child: TabBar(
-                      indicatorColor: Colors.transparent,
+                      indicatorColor: Colors.red,
                       onTap: (int indice) {
                         if (indice == 1) {
                           verificarConexion().then((valorDevuelto) {
@@ -1200,39 +1208,61 @@ class _HomePageState extends State<HomePage>
                           this._indexSelected = indice;
                         });
                       },
-                      unselectedLabelColor: Colores.COLOR_NARANJA_ATC_FARMA,
+                      unselectedLabelColor: Colors.white,
+                      
+                      
                       tabs: [
                         Tab(
                           child: Container(
                             decoration: BoxDecoration(
                                 color: _indexSelected == 0
-                                    ? selectedColor
-                                    : Colors.transparent,
+                                    ? Colors.white
+                                    : Color(0xff7754C1),
                                 borderRadius: BorderRadius.circular(50.0),
-                                border: Border.all(
-                                    width: 1,
-                                    color: Colores.COLOR_AZUL_ATC_FARMA)),
+                                
+                            ),
                             child: Align(
                               alignment: Alignment.center,
-                              child: Text("MIS PUNTOS"),
+                              child: Text("PUNTOS",
+                              style: TextStyle(
+                                  color: _indexSelected == 1
+                                    ? Colors.white
+                                    : Color(0xff7754C1),
+                                ),
+                              ),
                             ),
                           ),
                         ),
                         Tab(
-                          child: Container(
-                            decoration: BoxDecoration(
+                          child: Expanded(
+                            flex: 1,
+                            child: Container(
+                              width: 500.0,
+                              decoration: BoxDecoration(
                                 color: _indexSelected == 1
-                                    ? selectedColor
-                                    : Colors.transparent,
-                                borderRadius: BorderRadius.circular(50.0),
-                                border: Border.all(
-                                    width: 1,
-                                    color: Colores.COLOR_AZUL_ATC_FARMA)),
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text("OFERTAS"),
+                                    ? Colors.red
+                                    : Color(0xff7754C1),
+                                // borderRadius: BorderRadius.circular(50.0),
+                              ),
+                              child: Text('OFERTAS', style: TextStyle(color: Colors.black),),
                             ),
                           ),
+                          // child: Container(
+                          //   decoration: BoxDecoration(
+                          //       color: _indexSelected == 1
+                          //           ? Colors.red
+                          //           : Color(0xff7754C1),
+                          //       // borderRadius: BorderRadius.circular(50.0),
+                          //   ),
+                          //   child:  Text("OFERTAS",
+                          //       style: TextStyle(
+                          //         color: _indexSelected == 1
+                          //           ? Color(0xff7754C1)
+                          //           : Colors.white,
+                          //       ),
+                          //     ),
+                            
+                          // ),
                         ),
                       ]),
                 ),
@@ -1254,11 +1284,13 @@ class _HomePageState extends State<HomePage>
   }
 
   Widget _demas(BuildContext contexto) {
+    final phoneSize = MediaQuery.of(context).size;
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         _parteSuperior(contexto),
         //  _parteSuperiorTwo(contexto),
-        Expanded(child: _cuerpor(contexto)),
+        Expanded( child: _cuerpor(contexto)),
         _bottomMenu(contexto),
       ],
     );
@@ -1270,7 +1302,7 @@ class _HomePageState extends State<HomePage>
       width: double.infinity,
       height: double.infinity,
       child: Image(
-        image: AssetImage("assets/imagenes/fondo_fridolin.jpg"),
+        image: AssetImage("assets/imagenes/bago-fondo-1.png"),
         fit: BoxFit.cover,
       ),
     );
