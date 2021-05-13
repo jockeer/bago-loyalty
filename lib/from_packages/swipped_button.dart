@@ -11,7 +11,6 @@ enum SwipePosition {
 
 /// Controller which allow us to reset the swipe button.
 class SwipeController {
-
   AnimationController _controller;
 
   void _attachController(AnimationController controller) =>
@@ -28,7 +27,6 @@ class SwipeController {
 }
 
 class SwipeButton extends StatefulWidget {
-
   const SwipeButton({
     Key key,
     this.thumb,
@@ -55,8 +53,7 @@ class SwipeButton extends StatefulWidget {
 }
 
 class SwipeButtonState extends State<SwipeButton>
-  
-  with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   final GlobalKey _containerKey = GlobalKey();
   final GlobalKey _positionedKey = GlobalKey();
 
@@ -96,8 +93,21 @@ class SwipeButtonState extends State<SwipeButton>
         children: <Widget>[
           DecoratedBox(
             decoration: BoxDecoration(
-              color: Colores.COLOR_NARANJA_ATC_FARMA,
-              borderRadius: new BorderRadius.only( bottomLeft: Radius.circular(25.0), topRight: Radius.circular(25.0)  ), //esto estava en 50
+              // color: Color(0xff7754C1),
+              gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  stops: [    //ajoi
+                    
+                    0.6,
+                    0.8
+                  ],
+                  colors: [
+                  
+                    Color(0xff8B57E1),
+                    Color(0xff7754C1),
+                  ]),
+              borderRadius: new BorderRadius.circular(50.0), //esto estava en 50
             ),
             child: ClipRRect(
               clipper: _SwipeButtonClipper(
@@ -131,12 +141,28 @@ class SwipeButtonState extends State<SwipeButton>
               onHorizontalDragEnd: _onDragEnd,
               child: Container(
                 key: _positionedKey,
-                width: 90,  //estava en 100
-                height: 100,  //estava en 100
+                width: 90, //estava en 100
+                height: 100, //estava en 100
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only( bottomLeft: Radius.circular(25.0), topRight: Radius.circular(25.0) ),
-                 // shape: BoxShape.circle,
-                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(50.0),
+                  // shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  stops: [    //ajoi
+                    0.3,
+                    // 0.6,
+                    0.9,
+                    
+                  ],
+                  colors: [
+                    Color(0xff00FEE0),
+                    // Color(0xff00A9F2),
+                    Color(0xff8274FB),
+                  // color: Colors.black12,  //acaja
+                    
+                  ])
+                  // color: Colors.black12,  //acaja
                 ),
                 child: widget.thumb,
               ),

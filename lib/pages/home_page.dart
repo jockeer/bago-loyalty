@@ -530,39 +530,40 @@ class _HomePageState extends State<HomePage>
   Widget _cuenta(BuildContext contexto) {
     return Container(
       decoration: BoxDecoration(
-          color: Colores.COLOR_NARANJA_ATC_FARMA,
-          borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(15.0),
-              topRight: Radius.circular(15.0))),
+          // color: Colores.COLOR_NARANJA_ATC_FARMA,
+          borderRadius: BorderRadius.all(Radius.circular(50.0))
+      ),
       child: Column(
         children: <Widget>[
-          Builder(builder: (BuildContext contextoBuilder) {
-            return MaterialButton(
-                onPressed: () {
-                  //Navigator.of(contexto).pushReplacementNamed(LoginPage.nameOfPage);
+          Container(
+            child: Builder(builder: (BuildContext contextoBuilder) {
+              return MaterialButton(
+                  onPressed: () {
+                    //Navigator.of(contexto).pushReplacementNamed(LoginPage.nameOfPage);
 
-                  this.verificadorInternet.verificarConexion().then((onValue) {
-                    if (onValue[Constantes.estado] ==
-                        Constantes.respuesta_estado_ok) {
-                      _stopIsolate();
+                    this.verificadorInternet.verificarConexion().then((onValue) {
+                      if (onValue[Constantes.estado] ==
+                          Constantes.respuesta_estado_ok) {
+                        _stopIsolate();
 
-                      Navigator.of(contexto)
-                          .popAndPushNamed(AccountDetail.namePage);
-                    } else {
-                      this.base.showSnackBar(Constantes.error_conexion,
-                          contextoBuilder, Colors.brown);
-                    }
-                  });
-                },
-                child: Icon(
-                  Icons.people,
-                  color: Colors.white,
-                  size: 40.0,
-                ));
-          }),
+                        Navigator.of(contexto)
+                            .popAndPushNamed(AccountDetail.namePage);
+                      } else {
+                        this.base.showSnackBar(Constantes.error_conexion,
+                            contextoBuilder, Colors.brown);
+                      }
+                    });
+                  },
+                  child: Icon(
+                    Icons.account_circle_outlined,
+                    color: Color(0xff7754C1),
+                    size: 50.0,
+                  ));
+            }),
+          ),
           Text(
             "Cuenta",
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: Color(0xff7754C1)),
           )
         ],
       ),
@@ -578,18 +579,18 @@ class _HomePageState extends State<HomePage>
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Align(
-                widthFactor: 0.90,
+                widthFactor: 0.50,
                 child: Icon(
-                  Icons.arrow_forward,
-                  size: 40.0,
-                  color: Colores.COLOR_NARANJA_ATC_FARMA,
+                  Icons.arrow_right_alt,
+                  size: 50.0,
+                  color: Colors.white,
                 )) //esto agregue
           ],
         ),
         content: Center(
           child: Text(
             "Deslizar para canjear",
-            style: TextStyle(color: Colors.white, fontSize: 10.0),
+            style: TextStyle(color: Colors.white, fontSize: 16.0, fontWeight: FontWeight.bold ),
           ),
         ),
         onChanged: (result) {
@@ -695,9 +696,9 @@ class _HomePageState extends State<HomePage>
                   padding: EdgeInsets.only(left: 10.0),
                   child: _cuenta(contexto),
                 ),
-                SizedBox(
-                  width: tamanoPhone.width * 0.055,
-                ),
+                // SizedBox(
+                //   width: tamanoPhone.width * 0.055,
+                // ),
                 Expanded(child: _canjearPuntos(contexto)),
                 SizedBox(
                   width: tamanoPhone.width * 0.055,
@@ -1190,81 +1191,73 @@ class _HomePageState extends State<HomePage>
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.all(0.0),
-                  child: TabBar(
-                      indicatorColor: Colors.red,
-                      onTap: (int indice) {
-                        if (indice == 1) {
-                          verificarConexion().then((valorDevuelto) {
-                            if (valorDevuelto[Constantes.estado] !=
-                                Constantes.respuesta_estado_ok) {
-                              this.internet = false;
-                            } else {
-                              this.internet = true;
-                            }
-                          });
-                        }
+                  child: Container(
+                    color: Color(0xff7754C1),
+                    child: TabBar(
+                        indicatorPadding: EdgeInsets.all(0.0),
+                        indicatorColor: Colors.white,
+                        indicator: ShapeDecoration(
+                          color:  Colors.white,
+                          // color:  Colors.red,
+                          shape: RoundedRectangleBorder(
+                          borderRadius: _indexSelected == 1 
+                                        ?BorderRadius.only(topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0),)
+                                        :BorderRadius.only(topLeft: Radius.circular(25.0), topRight: Radius.circular(25.0), )                       
+                          )
+                        ),
+                        onTap: (int indice) {
+                          if (indice == 1) {
+                            verificarConexion().then((valorDevuelto) {
+                              if (valorDevuelto[Constantes.estado] !=
+                                  Constantes.respuesta_estado_ok) {
+                                this.internet = false;
+                              } else {
+                                this.internet = true;
+                              }
+                            });
+                          }
 
-                        this.setState(() {
-                          this._indexSelected = indice;
-                        });
-                      },
-                      unselectedLabelColor: Colors.white,
-                      
-                      
-                      tabs: [
-                        Tab(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: _indexSelected == 0
-                                    ? Colors.white
-                                    : Color(0xff7754C1),
-                                borderRadius: BorderRadius.circular(50.0),
-                                
-                            ),
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Text("PUNTOS",
-                              style: TextStyle(
-                                  color: _indexSelected == 1
-                                    ? Colors.white
-                                    : Color(0xff7754C1),
+                          this.setState(() {
+                            this._indexSelected = indice;
+                          });
+                        },
+                        unselectedLabelColor: Colors.white,
+                        
+                        indicatorSize: TabBarIndicatorSize.tab,
+
+                        tabs: [
+                          Tab(
+                            child: Container(
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text("PUNTOS",
+                                style: TextStyle(
+                                    color: _indexSelected == 1
+                                      ? Colors.white
+                                      : Color(0xff7754C1),
+                                    fontWeight: FontWeight.w900
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        Tab(
-                          child: Expanded(
-                            flex: 1,
+                          Tab(
                             child: Container(
-                              width: 500.0,
-                              decoration: BoxDecoration(
-                                color: _indexSelected == 1
-                                    ? Colors.red
-                                    : Color(0xff7754C1),
-                                // borderRadius: BorderRadius.circular(50.0),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text("OFERTAS",
+                                  style: TextStyle(
+                                    color: _indexSelected == 1
+                                      ? Color(0xff7754C1)
+                                      : Colors.white,
+                                    fontWeight: FontWeight.w900
+                                  ),
+                                ),
                               ),
-                              child: Text('OFERTAS', style: TextStyle(color: Colors.black),),
-                            ),
+                            ),              
                           ),
-                          // child: Container(
-                          //   decoration: BoxDecoration(
-                          //       color: _indexSelected == 1
-                          //           ? Colors.red
-                          //           : Color(0xff7754C1),
-                          //       // borderRadius: BorderRadius.circular(50.0),
-                          //   ),
-                          //   child:  Text("OFERTAS",
-                          //       style: TextStyle(
-                          //         color: _indexSelected == 1
-                          //           ? Color(0xff7754C1)
-                          //           : Colors.white,
-                          //       ),
-                          //     ),
-                            
-                          // ),
-                        ),
-                      ]),
+                        ]),
+                  ),
                 ),
                 Expanded(
                   child: TabBarView(
@@ -1292,6 +1285,7 @@ class _HomePageState extends State<HomePage>
         //  _parteSuperiorTwo(contexto),
         Expanded( child: _cuerpor(contexto)),
         _bottomMenu(contexto),
+        SizedBox(height: 20.0,)
       ],
     );
   }
