@@ -272,7 +272,8 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
               ),
           child: ElevatedButton(
             onPressed: () {
-              if (provedorBlocLoyalty.ultimoValorCI_NIT != null &&
+              if (
+                  provedorBlocLoyalty.ultimoValorCI_NIT != null &&
                   provedorBlocLoyalty.ultimoValorCI_NIT != "" &&
                   provedorBlocLoyalty.ultimoValorCiudadExped != null &&
                   provedorBlocLoyalty.ultimoValorCiudadExped != "" &&
@@ -284,9 +285,11 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
                   provedorBlocLoyalty.ultimoValorCiudad != "" &&
                   provedorBlocLoyalty.ultimoValorCelular != null &&
                   provedorBlocLoyalty.ultimoValorCelular != "" &&
+                  provedorBlocLoyalty.ultimoValorCodigoSucursal != null &&
+                  provedorBlocLoyalty.ultimoValorCodigoSucursal != "" 
                   // provedorBlocLoyalty.ultimoValorTermsAndCond != null &&
                   // provedorBlocLoyalty.ultimoValorTermsAndCond &&
-                  !asyncSnapshot.hasError) {
+                  ) {
                 verificadorDeInternet.verificarConexion().then((onValue) {
                   RegisterProvider registrarProvedor = new RegisterProvider();
                   if (onValue[Constantes.estado] ==
@@ -301,6 +304,7 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
                       Constantes.DATE: provedorBlocLoyalty.ultimoValorFechaNac,
                       Constantes.CELL_PHONE:
                           provedorBlocLoyalty.ultimoValorCelular,
+                      "branch_cus":provedorBlocLoyalty.ultimoValorCodigoSucursal
                     });
                     print(this.mapaObtenidoDePrimerRegistro);
 
@@ -374,7 +378,7 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
     this.mapaParaPasarAlPin.addAll({
       Constantes.grant_type: Constantes.password,
       Constantes.client_id:
-          "ATCFARMACORPAppUser", //Constantes.stellar_app_user,
+          "BAGOAppUser", //Constantes.stellar_app_user,
       Constantes.USERNAME:
           this.mapaObtenidoDePrimerRegistro[Constantes.ID_CARD],
       Constantes.password:
@@ -388,7 +392,7 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
   Widget textFieldCelular(BuildContext contextoCelular) {
     final provedorDeBloc = Provider.of(contextoCelular);
     return StreamBuilder(
-        stream: provedorDeBloc.streamCelular,
+        stream: provedorDeBloc.stremCodigoSucursal,
         builder: (BuildContext contexto, AsyncSnapshot<String> asyncSnapshot) {
           print(asyncSnapshot.data);
           return Container(
@@ -413,7 +417,7 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
                 
                       errorText: asyncSnapshot.error),
                   onChanged: (value) {
-                    provedorDeBloc.addDataToStreamCelular(value);
+                    provedorDeBloc.addDataToStreamCodigoSucursal(value);
                   },
                 ),
               ],
@@ -1018,6 +1022,7 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
   }
 
   Widget textFieldTelefono(BuildContext contextoCuerpo) {
+    final provedorDeBloc = Provider.of(contextoCuerpo);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -1037,9 +1042,9 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
             value: optSelect,
             items: [
               DropdownMenuItem(child: Text('+591', ), value: '+591', ),
-              DropdownMenuItem(child: Text('+111'), value: '+111',),
-              DropdownMenuItem(child: Text('+222'), value: '+222',),
-              DropdownMenuItem(child: Text('+333'), value: '+333',),
+              // DropdownMenuItem(child: Text('+111'), value: '+111',),
+              // DropdownMenuItem(child: Text('+222'), value: '+222',),
+              // DropdownMenuItem(child: Text('+333'), value: '+333',),
             ],
             onChanged: (opt){
               setState(() {
@@ -1049,30 +1054,36 @@ class _RegisterPartTwoState extends State<RegisterPartTwo> {
           ),
           
         ),
-        Container(
-          width: 150.0,
-          height: 40.0,
-          child: TextField(
-          // controller: this.controladorTextEditingCiudadExpedicion,
-          enableInteractiveSelection: false,
-          keyboardType: TextInputType.phone,
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-            border: OutlineInputBorder(borderRadius: BorderRadius.only(bottomRight: Radius.circular(50.0), topRight: Radius.circular(50.0) ), borderSide: BorderSide(color: Colors.transparent)),
-            enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.only(bottomRight: Radius.circular(50.0), topRight: Radius.circular(50.0) ) ),
-            disabledBorder: InputBorder.none,
-            fillColor: Colors.grey[100],
-            filled: true,
-            hintText: "Telefono",
-            // labelText: "Ciudad de expedición",
-            errorStyle: TextStyle(color: Colors.white),
-            
-          ),
-          // onChanged: (value) {
-          //   provedorDeBloc.addDataToStreamCiudadExp(value);
-          // },
+        StreamBuilder(
+          stream: provedorDeBloc.streamCelular,
+          builder: (BuildContext contexto, AsyncSnapshot<String> asyncSnapshot){
+            return Container(
+              width: 150.0,
+              height: 40.0,
+              child: TextField(
+              // controller: this.controladorTextEditingCiudadExpedicion,
+                enableInteractiveSelection: false,
+                keyboardType: TextInputType.phone,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.only(bottomRight: Radius.circular(50.0), topRight: Radius.circular(50.0) ), borderSide: BorderSide(color: Colors.transparent)),
+                  enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.only(bottomRight: Radius.circular(50.0), topRight: Radius.circular(50.0) ) ),
+                  disabledBorder: InputBorder.none,
+                  fillColor: Colors.grey[100],
+                  filled: true,
+                  hintText: "Telefono",
+                  // labelText: "Ciudad de expedición",
+                  errorStyle: TextStyle(color: Colors.white),
+                
+                ),
+              onChanged: (value) {
+                provedorDeBloc.addDataToStreamCelular(value);
+              },
+              
+              ),
+            );
+          },
           
-          ),
         )
         
         

@@ -5,7 +5,8 @@ class ConstantesApp {
 }
 
 class NetworkApp {
-  static final String Base = "https://clubincentivofarmacorp.com.bo/";
+  static final String Base = "https://bagoplus.com.bo/";
+  // static final String Base = "https://clubincentivofarmacorp.com.bo/";
 }
 
 class NetworkEndPointsApp {
@@ -123,7 +124,7 @@ class Constantes {
   static final String refreshToken = "refreshToken";
 
   static final String grant_type = "grant_type";
-  static final String stellar_app_user = "ATC_FARMACORPAppUser";
+  static final String stellar_app_user = "BAGOApp";
   static final String USERNAME = "username";
 
   static final String client_id = "client_id";

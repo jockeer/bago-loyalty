@@ -50,10 +50,10 @@ class _RecoverPasswordState extends State<RecoverPassword> {
 
   Future hitAccessTokenApi() async {
     String url = NetworkApp.Base + NetworkEndPointsApp.hitAccesToken; // +
-    //"?client_id=ATC_FARMACORPApp&client_secret=NTI5N2QyYmQ5NDQ0OTk1ZWE3NTg4NGIxMmM1MjY4ZDg";
+    //"?client_id=BAGOApp&client_secret=MDQ5MWUzNTIwZDAwNTdjOTdkNDI0YjA4MTFkZDA0MGI";
     final http.Response respuesta = await http.post(url, body: {
-      "client_id": "ATC_FARMACORPApp",
-      "client_secret": "NTI5N2QyYmQ5NDQ0OTk1ZWE3NTg4NGIxMmM1MjY4ZDg"
+      "client_id": "BAGOApp",
+      "client_secret": "MDQ5MWUzNTIwZDAwNTdjOTdkNDI0YjA4MTFkZDA0MGI"
     });
     Map<String, dynamic> respuestaEnMap = jsonDecode(respuesta.body);
 
@@ -225,7 +225,7 @@ class _RecoverPasswordState extends State<RecoverPassword> {
                   bottomLeft: Radius.circular(15.0),
                   topRight: Radius.circular(15.0))),
           elevation: 30.0,
-          color: Colores.COLOR_NARANJA_ATC_FARMA,
+          color: Color(0xffBF0183),
           textColor: Colors.white,
         );
       },
@@ -308,7 +308,7 @@ class _RecoverPasswordState extends State<RecoverPassword> {
           width: double.infinity,
           height: double.infinity,
           child: Image(
-            image: AssetImage("assets/imagenes/fondo_fridolin.jpg"),
+            image: AssetImage("assets/imagenes/bago-fondo-1.png"),
             fit: BoxFit.cover,
           ),
         );

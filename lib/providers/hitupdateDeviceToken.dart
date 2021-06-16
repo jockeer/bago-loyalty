@@ -26,7 +26,7 @@ class TokenDeviceUpdateProvider {
          urlFinal,
          body: {
               Constantes.grant_type   : "password",
-              Constantes.client_id    : "ATC_FARMACORPAppUser",
+              Constantes.client_id    : "BAGOAppUser",
               Constantes.access_token : this.preferencias.devolverValor(Constantes.userSpecificToken, ""),
               Constantes.USER_ID      : this.preferencias.devolverValor(Constantes.userSpecificToken, ""),
               Constantes.DEVICE_TYPE  : ( Platform.isAndroid ) ? "ANDROID" : "IOS",

@@ -42,15 +42,15 @@ class _WelcomePageState extends State<WelcomePage> {
         .preferencias
         .agregarValor(Constantes.last_page, WelcomePage.nameOfPage);
 
-    Timer.periodic(new Duration(seconds: 3),  (Timer timer){
-            if(_currentPage <= 1){
-                  _currentPage++;
-            }else{
-                   _currentPage = 0;
-            }
-            _controladorPageView.animateToPage(_currentPage,  duration: Duration(milliseconds: 300), curve: Curves.easeIn);
-
-       }); 
+    Timer.periodic(new Duration(seconds: 3), (Timer timer) {
+      if (_currentPage <= 1) {
+        _currentPage++;
+      } else {
+        _currentPage = 0;
+      }
+      _controladorPageView.animateToPage(_currentPage,
+          duration: Duration(milliseconds: 300), curve: Curves.easeIn);
+    });
 
     // prueba imei
   }
@@ -134,8 +134,8 @@ void _obTenerInformacion(){ //prueba imei
 
     try {
       respuesta = await http.post(url, body: {
-        "client_id": "ATC_FARMACORPApp",
-        "client_secret": "NTI5N2QyYmQ5NDQ0OTk1ZWE3NTg4NGIxMmM1MjY4ZDg"
+        "client_id": "BAGOApp",
+        "client_secret": "MDQ5MWUzNTIwZDAwNTdjOTdkNDI0YjA4MTFkZDA0MGI"
       });
       Map<String, dynamic> respuestaEnMap = jsonDecode(respuesta.body);
       String accessToke = respuestaEnMap["access_token"];
@@ -146,48 +146,43 @@ void _obTenerInformacion(){ //prueba imei
   }
 
   Widget _botonOne(BuildContext contexto) {
-    return 
-      ElevatedButton(
-        style: ElevatedButton.styleFrom(
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
           elevation: 10.0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50)
-          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
           primary: Color(0xffBF0183),
-          minimumSize: Size.fromHeight(50.0)
-        ),
-       
-        onPressed: () {
-          Navigator.pushNamed(contexto, LoginPage.nameOfPage);
-        },
-        child: Text(
-          "Ingresa",
-          style: TextStyle(color: Colors.white, fontSize: 25.0, fontWeight: FontWeight.bold),
-        ),
-
+          minimumSize: Size.fromHeight(50.0)),
+      onPressed: () {
+        Navigator.pushNamed(contexto, LoginPage.nameOfPage);
+      },
+      child: Text(
+        "Ingresa",
+        style: TextStyle(
+            color: Colors.white, fontSize: 25.0, fontWeight: FontWeight.bold),
+      ),
     );
   }
 
   Widget _botonTwo(BuildContext contexto) {
-    return  ElevatedButton(
-        style: ElevatedButton.styleFrom(
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
           elevation: 10.0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(50.0)
-          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.0)),
           primary: Color(0xff7754C1),
-          minimumSize: Size.fromHeight(50.0)
-        ),
-        onPressed: () {
-          Navigator.pushNamed(contexto, RegisterPartOne.nameOfPage);
-        },
-        
-        child: Text(
-          "Registrate",
-          style: TextStyle(color: Color(0xffFFFFFF), fontSize: 25.0, fontWeight: FontWeight.bold),
-        ),
+          minimumSize: Size.fromHeight(50.0)),
+      onPressed: () {
+        Navigator.pushNamed(contexto, RegisterPartOne.nameOfPage);
+      },
+      child: Text(
+        "Registrate",
+        style: TextStyle(
+            color: Color(0xffFFFFFF),
+            fontSize: 25.0,
+            fontWeight: FontWeight.bold),
+      ),
     );
-  
   }
 
   Widget _bodyHome(BuildContext contexto) {
@@ -197,7 +192,6 @@ void _obTenerInformacion(){ //prueba imei
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Expanded(child: Container()),
-          
           Expanded(child: Container()),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -206,26 +200,22 @@ void _obTenerInformacion(){ //prueba imei
                 width: 10.0,
               ),
               Expanded(
-                child: Container(   
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50.0),
-                    border: Border.all(width: 4.0, color: Color(0xff00FEE0))
-                  ),
-                  child: _botonOne(contexto)
-                )
-              ),
+                  child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50.0),
+                          border:
+                              Border.all(width: 4.0, color: Color(0xff00FEE0))),
+                      child: _botonOne(contexto))),
               SizedBox(
                 width: 5.0,
               ),
               Expanded(
-                child: Container(   
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50.0),
-                    border: Border.all(width: 4.0, color: Color(0xff00FEE0))
-                  ),
-                  child: _botonTwo(contexto)
-                )
-              ),
+                  child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50.0),
+                          border:
+                              Border.all(width: 4.0, color: Color(0xff00FEE0))),
+                      child: _botonTwo(contexto))),
               SizedBox(
                 width: 10.0,
               ),
@@ -259,33 +249,45 @@ void _obTenerInformacion(){ //prueba imei
             backgroundColor: Colors.brown,
             content: Text("Por favor, revisar su conexion a internet"),
           );
-          
-          
-          
+
           Scaffold.of(contextoV).showSnackBar(snackBar);
           Scaffold.of(contextoV).showSnackBar(snackBar);
         }
       });
 
-      return 
-      // _fondoOne(
-      //     contexto,
-      //     Image(
-      //       image: AssetImage("assets/imagenes/bago-fondo-temp.jpeg"),
-      //       fit: BoxFit.cover,
-      //       // fit: BoxFit.cover,
+      return
+          // _fondoOne(
+          //     contexto,
+          //     Image(
+          //       image: AssetImage("assets/imagenes/bago-fondo-temp.jpeg"),
+          //       fit: BoxFit.cover,
+          //       // fit: BoxFit.cover,
 
-      //     ));
+          //     ));
 
-      PageView(
-               controller: _controladorPageView,
-               children: <Widget>[
-                        
-                        _fondoOne(contexto, Image(image: AssetImage("assets/imagenes/primera_pagina.png"), fit: BoxFit.cover,)),
-                      _fondoOne(contexto, Image(image: AssetImage("assets/imagenes/segunda_pagina.png"), fit: BoxFit.cover,)),
-                       _fondoOne(contexto, Image(image: AssetImage("assets/imagenes/primera_pagina.png"), fit: BoxFit.cover,))
-                ],
-              ); 
+          PageView(
+        controller: _controladorPageView,
+        children: <Widget>[
+          _fondoOne(
+              contexto,
+              Image(
+                image: AssetImage("assets/imagenes/primera_pagina.png"),
+                fit: BoxFit.cover,
+              )),
+          _fondoOne(
+              contexto,
+              Image(
+                image: AssetImage("assets/imagenes/segunda_pagina.png"),
+                fit: BoxFit.cover,
+              )),
+          _fondoOne(
+              contexto,
+              Image(
+                image: AssetImage("assets/imagenes/tercera_pagina.png"),
+                fit: BoxFit.cover,
+              ))
+        ],
+      );
     });
   }
 }

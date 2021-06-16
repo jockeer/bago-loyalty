@@ -119,7 +119,7 @@ class _EnterPinPageState extends State<EnterPinPage> {
               bottomLeft: Radius.circular(15.0),
               topRight: Radius.circular(15.0))),
       elevation: 30.0,
-      color: Colores.COLOR_NARANJA_ATC_FARMA,
+      color: Color(0xff7754C1),
       textColor: Colors.white,
     );
   }
@@ -136,7 +136,7 @@ class _EnterPinPageState extends State<EnterPinPage> {
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  color: Colores.COLOR_AZUL_ATC_FARMA),
+                  color: Color(0xffBF0183)),
               height: tamanoPhone.height * 0.35,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -149,7 +149,7 @@ class _EnterPinPageState extends State<EnterPinPage> {
                       height: tamanoPhone.width * 0.45,
                       child: Image(
                           image: AssetImage(
-                              "assets/imagenes/imagenes_farmacorp/farmacorp_logo.png"))),
+                              "assets/icons/Logo-bago-blanco.png"))),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
@@ -280,7 +280,7 @@ class _EnterPinPageState extends State<EnterPinPage> {
                     topRight: Radius.circular(15.0))),
             elevation: 30.0,
             color: Colores.COLOR_BLANCO_LOYALTY,
-            textColor: Colores.COLOR_NARANJA_ATC_FARMA,
+            textColor: Colors.black
           );
         });
   }
@@ -321,7 +321,7 @@ class _EnterPinPageState extends State<EnterPinPage> {
           Container(
             width: tamanoPhone.width * 0.5,
             child: Image(
-              image: AssetImage("assets/imagenes/logo_fridolin.png"),
+              image: AssetImage("assets/icons/logo-bago.png"),
               fit: BoxFit.cover,
             ),
           ),
@@ -336,7 +336,7 @@ class _EnterPinPageState extends State<EnterPinPage> {
       width: double.infinity,
       height: double.infinity,
       child: Image(
-        image: AssetImage("assets/imagenes/fondo_fridolin.jpg"),
+        image: AssetImage("assets/imagenes/bago-fondo-3.png"),
         fit: BoxFit.cover,
       ),
     );

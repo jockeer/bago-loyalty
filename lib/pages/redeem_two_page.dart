@@ -59,7 +59,18 @@ class _RedeenTwoPageState extends State<RedeenTwoPage> {
                       Colores.COLOR_AZUL_ATC_FARMA),
                 ),
               );
-            }));
+            }
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          child: Icon(Icons.arrow_back),
+          onPressed: (){
+            Navigator.pushNamed(context, RedeemPageOne.nameOfPage);
+          },
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+    );
   }
 
   Widget _demasElementos(BuildContext context) {
@@ -77,7 +88,7 @@ class _RedeenTwoPageState extends State<RedeenTwoPage> {
           ),
           _btnCanjear(context),
           SizedBox(
-            height: 50.0,
+            height: 20.0,
           )
         ],
         
@@ -107,12 +118,15 @@ class _RedeenTwoPageState extends State<RedeenTwoPage> {
                 fontSize: 25.0,
                 fontWeight: FontWeight.w900),
           ),
+          SizedBox(height: 15.0,),
           Divider(
-            height: 30.0,
+            height: 0.0,
             thickness: 4.0,
             color: Color(0xff4C91F8),
           ),
-          Row(
+          Padding(
+            padding: EdgeInsets.all(5.0),
+            child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("Selecione. . .",
@@ -126,9 +140,11 @@ class _RedeenTwoPageState extends State<RedeenTwoPage> {
                 size: 40.0,
               )
             ],
+            ),
           ),
+          
           Divider(
-            height: 30.0,
+            height: 0.0,
             thickness: 4.0,
             color: Color(0xff4C91F8),
             
@@ -144,7 +160,7 @@ class _RedeenTwoPageState extends State<RedeenTwoPage> {
             )
           ),
           
-          
+          SizedBox(height: 20.0,)
           
         ],
       ),
@@ -166,12 +182,15 @@ class _RedeenTwoPageState extends State<RedeenTwoPage> {
                 keyboardType: TextInputType.text,
                 enableInteractiveSelection: false,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
-                    prefixIcon: Icon(Icons.store),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0), borderSide: BorderSide(color: Colors.transparent)),
+                      enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.circular(50.0) ),
+                      disabledBorder: InputBorder.none,
+                      fillColor: Colors.grey[100],
+                      filled: true,
                     hintText: "Seleccione una tienda",
-                    fillColor: Colors.white,
-                    filled: true,
+                    prefixIcon: Icon(Icons.home),
+                    suffixIcon: Icon(Icons.keyboard_arrow_down_sharp),
                     //labelText: "Seleccione una tienda",
                     errorStyle: TextStyle(color: Colors.white),
                     errorText: snapshot.error),
@@ -201,12 +220,14 @@ class _RedeenTwoPageState extends State<RedeenTwoPage> {
                 controller: this.controladorMonto,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0)),
-                    prefixIcon: Icon(Icons.attach_money),
-                    hintText: "Monto",
-                    fillColor: Colors.white,
+                    contentPadding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(50.0), borderSide: BorderSide(color: Colors.transparent)),
+                    enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent), borderRadius: BorderRadius.circular(50.0) ),
+                    disabledBorder: InputBorder.none,
+                    fillColor: Colors.grey[100],
                     filled: true,
+                    hintText: "Monto",
+                    prefixIcon: Icon(Icons.attach_money_rounded),
                     //labelText: "Seleccione una tienda",
                     errorStyle: TextStyle(color: Colors.white),
                     errorText: snapshot.error),
@@ -416,7 +437,7 @@ class _RedeenTwoPageState extends State<RedeenTwoPage> {
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  color: Colores.COLOR_AZUL_ATC_FARMA),
+                  color: Color(0xffBF0183)),
               height: tamanoPhone.height * 0.40,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -424,7 +445,7 @@ class _RedeenTwoPageState extends State<RedeenTwoPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 5.0),
                     child: Image(
-                        image: AssetImage("assets/imagenes/logo_fridolin.png")),
+                        image: AssetImage("assets/icons/Logo-bago-blanco.png")),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -458,7 +479,7 @@ class _RedeenTwoPageState extends State<RedeenTwoPage> {
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  color: Colores.COLOR_AZUL_ATC_FARMA),
+                  color: Color(0xffBF0183)),
               height: tamanoPhone.height * 0.40,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -467,7 +488,7 @@ class _RedeenTwoPageState extends State<RedeenTwoPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 5.0),
                     child: Image(
                         image: AssetImage(
-                            "assets/imagenes/imagenes_farmacorp/farmacorp_logo.png")),
+                            "assets/icons/Logo-bago-blanco.png")),
                   ),
                   Padding(
                     padding: EdgeInsets.only(
@@ -515,7 +536,7 @@ class _RedeenTwoPageState extends State<RedeenTwoPage> {
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                  color: Colores.COLOR_AZUL_ATC_FARMA),
+                  color: Color(0xffBF0183)),
               height: tamanoPhone.height * 0.35,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,

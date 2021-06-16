@@ -229,6 +229,7 @@ class BlocLoyalty with Validador{
   final _streamControllerCiudad           = BehaviorSubject<String>();
   final _streamControllerTipoCliente      = BehaviorSubject<String>();
   final _streamControllerCelular          = BehaviorSubject<String>();
+  final _stremControllerCodigoSucursal    = BehaviorSubject<String>();
   final _streamControllerTandC            = BehaviorSubject<bool>(); 
 
 
@@ -242,7 +243,8 @@ class BlocLoyalty with Validador{
     Stream<String>      get streamCiudad            => _streamControllerCiudad.stream;
     Stream<String>      get streamTipoCliente       => _streamControllerTipoCliente.stream;
     Stream<String>      get streamCelular           => _streamControllerCelular.stream.transform( validaNumeroCelular );
-    Stream<bool>      get streamTandCondition       => _streamControllerTandC.stream;
+    Stream<bool>        get streamTandCondition     => _streamControllerTandC.stream;
+    Stream<String>      get stremCodigoSucursal     => _stremControllerCodigoSucursal.stream;
 
 
     Function(String)  get addDataToToStreamCi_Nit       => _streamControllerCi_nit.sink.add;
@@ -253,6 +255,7 @@ class BlocLoyalty with Validador{
     Function(String)  get addDataToStreamTipoCliente    => _streamControllerTipoCliente.sink.add;
     Function(String)  get addDataToStreamCelular        => _streamControllerCelular.sink.add;
     Function(bool)  get addDataToStreamTAndConditio     => _streamControllerTandC.sink.add; 
+    Function(String)  get addDataToStreamCodigoSucursal => _stremControllerCodigoSucursal.sink.add;
 
    String            get    ultimoValorCI_NIT           => _streamControllerCi_nit.value;
    String            get    ultimoValorCiudadExped      => _streamControllerCiudadExpedicion.value;
@@ -261,6 +264,7 @@ class BlocLoyalty with Validador{
    String            get    ultimoValorCiudad           => _streamControllerCiudad.value;
    String            get    ultimoValorTipoCliente      => _streamControllerTipoCliente.value;
    String            get    ultimoValorCelular          => _streamControllerCelular.value;
+   String            get    ultimoValorCodigoSucursal   => _stremControllerCodigoSucursal.value;
    bool            get    ultimoValorTermsAndCond     => _streamControllerTandC.value; 
 
     Stream<bool> get validarRegistrosParteTwo => 
@@ -421,6 +425,7 @@ class BlocLoyalty with Validador{
           _streamControllerCiudad?.close();
           _streamControllerTipoCliente?.close();
           _streamControllerCelular?.close();
+          _stremControllerCodigoSucursal?.close();
           _streamControllerTandC?.close();
 
           //de recuperar contrasena

@@ -12,10 +12,10 @@ class OffertProvider {
   void hitAccessTokenApi() async {
     String url = NetworkApp.Base +
         NetworkEndPointsApp
-            .hitAccesToken; // + "?client_id=ATC_FARMACORPApp&client_secret=NTI5N2QyYmQ5NDQ0OTk1ZWE3NTg4NGIxMmM1MjY4ZDg";
+            .hitAccesToken; // + "?client_id=BAGOApp&client_secret=MDQ5MWUzNTIwZDAwNTdjOTdkNDI0YjA4MTFkZDA0MGI";
     final http.Response respuesta = await http.post(url, body: {
-      "client_id": "ATC_FARMACORPApp",
-      "client_secret": "NTI5N2QyYmQ5NDQ0OTk1ZWE3NTg4NGIxMmM1MjY4ZDg"
+      "client_id": "BAGOApp",
+      "client_secret": "MDQ5MWUzNTIwZDAwNTdjOTdkNDI0YjA4MTFkZDA0MGI"
     });
     Map<String, dynamic> respuestaEnMap = jsonDecode(respuesta.body);
 
@@ -28,7 +28,7 @@ class OffertProvider {
   }
 
   Future<List<Offert>> obtenerOfertas() async {
-    this.listaOfertas = new List();
+    this.listaOfertas = [];
     final String base = NetworkApp.Base;
     final String endPointLogin = NetworkEndPointsApp.obtenerOfertas;
     String urlFinal = base + endPointLogin;

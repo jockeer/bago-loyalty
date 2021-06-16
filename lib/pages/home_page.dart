@@ -386,65 +386,30 @@ class _HomePageState extends State<HomePage>
     });
   }
 
-  Widget _parteSuperior(BuildContext contexto) {
-    final tamanoPhone = MediaQuery.of(contexto).size;
+  Widget _miSuperior(BuildContext context){
+    final tamanoPhone = MediaQuery.of(context).size;
     return SafeArea(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-            child: Opacity(
-              opacity: 0.0,
-              child: MaterialButton(
-                minWidth: 0.0,
-                onPressed: () {},
-                child: GestureDetector(
-                    onTap: () {
-                      _stopIsolate();
-                      //  Navigator.of(contexto).pushNamed(CarritoPage.nameOfPage);
-                    },
-                    child: Icon(
-                      Icons.shopping_cart,
-                      color: Colors.white,
-                    )), //Icon(Icons.question_answer, color: Colors.white, size: 30.0,)
-              ),
-            ),
-          ),
-          Expanded(
-            child: Opacity(
-              opacity: 0.0,
-              child: MaterialButton(
-                minWidth: 0.0,
-                onPressed: () {},
-                child: Image.asset(
-                  "assets/imagenes/preguntas_blanco.png",
-                  width: 0.0,
-                  height: 0.0,
-                ), //Icon(Icons.question_answer, color: Colors.white, size: 30.0,)
-              ),
-            ),
-          ),
-          Container(
-            width: tamanoPhone.width * 0.5,
-            // height: tamanoPhone.width * 0.3,
-            child: Image(
-              fit: BoxFit.contain,
-              image: AssetImage(
-                  "assets/icons/Logo-bago-blanco.png"),
-            ),
-          ),
-          Expanded(
-            child: Builder(builder: (BuildContext contextoButtonHep) {
-              return MaterialButton(
-                minWidth: 10.0,
-                onPressed: () {
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton(
+                child: Image(
+                  image: AssetImage('assets/imagenes/preguntas_blanco.png'),
+                  width: 25.0,
+                ),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.transparent,
+                  elevation: 0.0
+                ),
+                onPressed: (){
                   verificarConexion().then((valor) {
                     if (valor[Constantes.estado] ==
                         Constantes.respuesta_estado_ok) {
                       _stopIsolate();
 
-                      Navigator.of(contexto).pushNamed(HelpPage.namePage);
+                      Navigator.of(context).pushNamed(HelpPage.namePage);
                     } else {
                       print("No hay");
                       final snackBar = SnackBar(
@@ -454,25 +419,23 @@ class _HomePageState extends State<HomePage>
                       );
 
                       // Find the Scaffold in the widget tree and use it to show a SnackBar.
-                      Scaffold.of(contextoButtonHep).showSnackBar(snackBar);
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      // Scaffold.of(context).showSnackBar(snackBar);
                     }
                   });
                 },
-                child: Image.asset(
-                  "assets/imagenes/preguntas_blanco.png",
-                  width: 50,
-                  height: 50,
-                ), //Icon(Icons.question_answer, color: Colors.white, size: 30.0,)
-              );
-            }),
-          ),
-          Expanded(
-            child: Builder(
-              builder: (BuildContext contextoBtnTransfer) {
-                return MaterialButton(
-                  minWidth: 10.0,
-                  onPressed: () {
-                    this
+              ),
+              ElevatedButton(
+                child: Image(
+                  image: AssetImage('assets/imagenes/transaccion_blanco.png'),
+                  width: 25.0,
+                ),
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.transparent,
+                  elevation: 0.0
+                ),
+                onPressed: (){
+                   this
                         .verificadorInternet
                         .verificarConexion()
                         .then((onValue) {
@@ -481,7 +444,7 @@ class _HomePageState extends State<HomePage>
                         if (this.myPointsAndAccount != null) {
                           _stopIsolate();
 
-                          Navigator.of(contexto).popAndPushNamed(
+                          Navigator.of(context).popAndPushNamed(
                               HistoryTransferPage.nameOfPage,
                               arguments:
                                   (this.myPointsAndAccount[Constantes.mensaje]
@@ -492,40 +455,29 @@ class _HomePageState extends State<HomePage>
                         } else {
                           this.base.showSnackBar(
                               "Por favor, vuelva a intentarlo",
-                              contextoBtnTransfer,
+                              context,
                               Colors.brown);
                         }
                       } else {
                         this.base.showSnackBar(Constantes.error_conexion,
-                            contextoBtnTransfer, Colors.brown);
+                            context, Colors.brown);
                       }
                     });
-                  },
-                  child: Image.asset(
-                    "assets/imagenes/transaccion_blanco.png",
-                    width: 50,
-                    height: 50,
-                  ), //Icon(Icons.av_timer, color: Colors.white,size: 30.0,)
-                );
-              },
-            ),
+                },
+              ),
+            ],
           ),
+          Image(
+            image: AssetImage('assets/icons/Logo-bago-blanco.png'),
+            width: tamanoPhone.width * 0.5,
+          ),
+          SizedBox(height: 30.0,)
         ],
-      ),
-    );
+      )
+    ); 
+    
   }
 
-  Widget _parteSuperiorTwo(BuildContext contexto) {
-    final tamanoPhone = MediaQuery.of(contexto).size;
-    return Container(
-      width: tamanoPhone.width * 0.5,
-      height: tamanoPhone.height * 0.2,
-      color: Colors.transparent,
-      child: Image(
-        image: AssetImage("assets/imagenes/logo_fridolin.png"),
-      ),
-    );
-  }
 
   Widget _cuenta(BuildContext contexto) {
     return Container(
@@ -1281,7 +1233,8 @@ class _HomePageState extends State<HomePage>
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        _parteSuperior(contexto),
+        _miSuperior(contexto),
+        // _parteSuperior(contexto),
         //  _parteSuperiorTwo(contexto),
         Expanded( child: _cuerpor(contexto)),
         _bottomMenu(contexto),

@@ -274,8 +274,7 @@ class _RegisterPartOneState extends State<RegisterPartOne> {
       Constantes.EMAIL: provedorDeBloc.ultimoValorCorreo,
       Constantes.password: provedorDeBloc.ultimoValorPassword2,
       Constantes.LAST_NAME_FATHER: provedorDeBloc.ultimoValorLastName,
-      Constantes.CODIGO_CONSULTORIA:
-          provedorDeBloc.ultimoValorCodigoConsRegisterOne
+      Constantes.CODIGO_CONSULTORIA:'12345'
     };
   }
 

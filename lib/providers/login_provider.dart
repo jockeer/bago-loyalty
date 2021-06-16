@@ -17,7 +17,7 @@ class LoginProvider {
       respuesta = await http.post(urlFinal, body: {
         "password": password,
         "grant_type": "password",
-        "client_id": "ATCFARMACORPAppUser",
+        "client_id": "BAGOAppUser",
         "username": nroCarnet
       });
     } catch (e) {

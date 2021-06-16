@@ -66,7 +66,7 @@ class _HistoryTransferPageState extends State<HistoryTransferPage> {
             width: 200,
             height: 139,
             child: Image(
-              image: AssetImage("assets/imagenes/logo_fridolin.png"),
+              image: AssetImage("assets/icons/Logo-bago-blanco.png"),
             ),
           ),
           GestureDetector(
@@ -102,7 +102,7 @@ class _HistoryTransferPageState extends State<HistoryTransferPage> {
                     height: tamanoPhone.height * 0.05,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                        color: Colores.COLOR_NARANJA_ATC_FARMA,
+                        color: Color(0XFF7754C1),
                         borderRadius: BorderRadius.circular(10.0)),
                     child: Center(
                         child: Text(
@@ -237,7 +237,7 @@ class _HistoryTransferPageState extends State<HistoryTransferPage> {
       width: double.infinity,
       height: double.infinity,
       child: Image(
-        image: AssetImage("assets/imagenes/fondo_fridolin.jpg"),
+        image: AssetImage("assets/imagenes/bago-fondo-2.png"),
         fit: BoxFit.cover,
       ),
     );

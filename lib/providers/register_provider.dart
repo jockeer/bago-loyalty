@@ -26,9 +26,9 @@ class RegisterProvider {
     } catch (e) {
        return this.mapaADevolver  = {
                       Constantes.estado  : Constantes.respuesta_estado_fail,
-                      Constantes.mensaje : "Unknown error"
+                      Constantes.mensaje : "Unknown error sa"
                };  
-            }
+    }
 
         try{
              final Map<String, dynamic> decodedData = json.decode(respuesta.body);
@@ -47,7 +47,7 @@ class RegisterProvider {
         }catch( e ){
               this.mapaADevolver  = {
                       Constantes.estado  : Constantes.respuesta_estado_fail,
-                      Constantes.mensaje : "Unknown error"
+                      Constantes.mensaje : "Unknown error ss"
                   };    
         }
     

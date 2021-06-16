@@ -45,7 +45,7 @@ class RedeemPageOne extends StatelessWidget {
           ),
           _btnEnviar(context),
           SizedBox(
-            height: 50.0,
+            height: 20.0,
           )
         ],
       ),
@@ -74,12 +74,15 @@ class RedeemPageOne extends StatelessWidget {
                 fontSize: 25.0,
                 fontWeight: FontWeight.w900),
           ),
+          SizedBox(height: 15.0,),
           Divider(
-            height: 30.0,
+            height: 0.0,
             thickness: 4.0,
             color: Color(0xff4C91F8),
           ),
-          Row(
+          Padding(
+            padding: EdgeInsets.all(5.0),
+            child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text("Selecione. . .",
@@ -94,8 +97,10 @@ class RedeemPageOne extends StatelessWidget {
               )
             ],
           ),
+          ),
+          
           Divider(
-            height: 30.0,
+            height: 0.0,
             thickness: 4.0,
             color: Color(0xff4C91F8),
             
@@ -107,11 +112,11 @@ class RedeemPageOne extends StatelessWidget {
                 borderRadius: BorderRadius.vertical(bottom: Radius.circular(30.0)),
                 color: Colors.white,
               ),
-              margin: EdgeInsets.symmetric(horizontal: 10.0) ,
+              margin: EdgeInsets.symmetric(horizontal: 6.0) ,
               child: _textFieldSeleccionar(context)
             )
           ),
-          SizedBox(height: 12.0,)
+          SizedBox(height: 20.0,)
         ],
       ),
     );
@@ -200,6 +205,7 @@ class RedeemPageOne extends StatelessWidget {
         stream: provedorDeBloc.radioStream,
         builder: (context, snapshot) {
           return RadioListTile(
+                contentPadding: EdgeInsets.symmetric(vertical: 10.0,horizontal: 5.0),
                 activeColor: Color(0xff8B3192),
                 title: Text(title, style: TextStyle(color: Color(0xff8B3192)),),
                 value: value,

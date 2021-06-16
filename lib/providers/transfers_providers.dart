@@ -21,7 +21,7 @@ class HistoryProviders {
   Future _hitAccessTokenApi() async {
     String url = NetworkApp.Base +
         NetworkEndPointsApp.hitAccesToken +
-        "?client_id=ATC_FARMACORPApp&client_secret=NTI5N2QyYmQ5NDQ0OTk1ZWE3NTg4NGIxMmM1MjY4ZDg";
+        "?client_id=BAGOApp&client_secret=MDQ5MWUzNTIwZDAwNTdjOTdkNDI0YjA4MTFkZDA0MGI";
     final http.Response respuesta = await http.get(url);
     Map<String, dynamic> respuestaEnMap = jsonDecode(respuesta.body);
 

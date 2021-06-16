@@ -86,7 +86,7 @@ class ShowHelp extends StatelessWidget {
               color: Colors.red,
               width: double.infinity,
               height: double.infinity,
-              child:  Image( image: AssetImage("assets/imagenes/fondo_fridolin.jpg") , fit: BoxFit.cover,),
+              child:  Image( image: AssetImage("assets/imagenes/bago-fondo-1.png") , fit: BoxFit.cover,),
           );
   }
 
